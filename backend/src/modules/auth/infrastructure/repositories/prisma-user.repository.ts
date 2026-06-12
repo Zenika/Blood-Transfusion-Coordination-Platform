@@ -11,11 +11,11 @@ export class PrismaUserRepository implements UserRepository {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        hashedPassword: data.password,
+        hashedPassword: data.hashedPassword,
       },
     });
   }
   async findByEmail(email: string): Promise<any> {
-    return await  this.prisma.user.findUnique({ where: { email } });
+    return await this.prisma.user.findUnique({ where: { email } });
   }
 }
