@@ -1,9 +1,12 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { RegisterDto } from '../dto/register.dto';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginDto } from '../dto/login.dto';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
+import { JwtAuthGuard } from '../../infrastructure/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
+import type { AuthenticatedUser } from 'src/shared/types/authenticated-user.type';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -20,5 +23,11 @@ export class AuthController {
   @Post('login')
   login(@Body() dto: LoginDto) {
     return this.loginUseCase.execute(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@CurrentUser() user: AuthenticatedUser) {
+    return user;
   }
 }
