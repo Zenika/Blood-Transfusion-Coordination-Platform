@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Req, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RegisterDto } from '../dto/register.dto';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginDto } from '../dto/login.dto';
@@ -15,7 +15,6 @@ export class AuthController {
     private readonly registerUseCase: RegisterUseCase,
     private readonly loginUseCase: LoginUseCase,
   ) {}
-
   @Post('register')
   register(@Body() dto: RegisterDto) {
     return this.registerUseCase.execute(dto);
@@ -24,9 +23,9 @@ export class AuthController {
   login(@Body() dto: LoginDto) {
     return this.loginUseCase.execute(dto);
   }
-
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
+  @Post('profile')
   getProfile(@CurrentUser() user: AuthenticatedUser) {
     return user;
   }

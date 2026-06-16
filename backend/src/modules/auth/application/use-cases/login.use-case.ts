@@ -2,6 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserRepository } from '../../domain/repositories/user.repository';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { LoginDto } from '../../presentation/dto/login.dto';
+import { AuthResponse } from 'src/shared/types/auth-reponse.type';
 
 @Injectable()
 export class LoginUseCase {
@@ -9,7 +11,7 @@ export class LoginUseCase {
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
   ) {}
-  async execute(data: any): Promise<any> {
+  async execute(data: LoginDto): Promise<AuthResponse> {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) {
       throw new UnauthorizedException('Invalid  crendentials');

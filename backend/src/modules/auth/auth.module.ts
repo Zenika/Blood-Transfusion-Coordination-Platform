@@ -6,6 +6,7 @@ import { UserRepository } from './domain/repositories/user.repository';
 import { PrismaUserRepository } from './infrastructure/repositories/prisma-user.repository';
 import { LoginUseCase } from './application/use-cases/login.use-case';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useClass: PrismaUserRepository,
     },
     LoginUseCase,
+    JwtStrategy,
   ],
 })
 export class AuthModule {}
