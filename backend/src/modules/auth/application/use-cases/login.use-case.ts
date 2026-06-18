@@ -26,6 +26,7 @@ export class LoginUseCase {
     const accessToken = await this.jwtService.signAsync({
       sub: user.id,
       email: user.email,
+      role: user.role,
     });
     return { accessToken };
   }
