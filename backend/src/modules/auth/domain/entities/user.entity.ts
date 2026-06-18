@@ -1,3 +1,5 @@
+import { UserRole } from 'src/shared/enums/user-role.enum';
+
 export class UserEntity {
   id!: string;
   firstName!: string;
@@ -7,5 +9,5 @@ export class UserEntity {
   phoneNumber!: string | null;
   createdAt!: Date;
   updatedAt!: Date;
-  role!: 'PATIENT' | 'DONOR';
+  role!: UserRole;
 }

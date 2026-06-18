@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { UserEntity } from '../../domain/entities/user.entity';
+import { UserRole } from 'src/shared/enums/user-role.enum';
 
 export class UserMapper {
   static toDomain(user: User): UserEntity {
@@ -12,7 +13,7 @@ export class UserMapper {
       phoneNumber: user.phoneNumber,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
-      role: user.role,
+      role: user.role === 'PATIENT' ? UserRole.PATIENT : UserRole.DONOR,
     };
   }
 }
