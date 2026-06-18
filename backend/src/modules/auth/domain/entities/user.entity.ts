@@ -7,4 +7,5 @@ export class UserEntity {
   phoneNumber!: string | null;
   createdAt!: Date;
   updatedAt!: Date;
+  role!: 'PATIENT' | 'DONOR';
 }

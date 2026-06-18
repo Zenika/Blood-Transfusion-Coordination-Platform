@@ -12,6 +12,7 @@ export class UserMapper {
       phoneNumber: user.phoneNumber,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+      role: user.role,
     };
   }
 }

@@ -1,5 +1,4 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 import { UserRepository } from '../../domain/repositories/user.repository';
 import { RegisterDto } from '../../presentation/dto/register.dto';
 import { UserResponse } from 'src/shared/types/user-reponse.type';
@@ -13,11 +12,7 @@ export class RegisterUseCase {
     if (existingUser) {
       throw new ConflictException('Email aleardy exists');
     }
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    const user = await this.userRepository.create({
-      ...data,
-      hashedPassword: hashedPassword,
-    });
+    const user = await this.userRepository.create(data);
     return UserMapper.toDomain(user);
   }
 }

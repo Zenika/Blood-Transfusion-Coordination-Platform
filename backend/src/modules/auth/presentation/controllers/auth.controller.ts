@@ -17,7 +17,7 @@ export class AuthController {
   ) {}
   @Post('register')
   register(@Body() dto: RegisterDto) {
-    return this.registerUseCase.execute(dto);
+    return this.registerUseCase.execute(dto); //ajouter un mapper
   }
   @Post('login')
   login(@Body() dto: LoginDto) {
