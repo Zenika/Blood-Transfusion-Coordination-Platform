@@ -17,6 +17,7 @@ export class PrismaUserRepository implements UserRepository {
         lastName: data.lastName,
         email: data.email,
         hashedPassword: hashedPassword,
+        phoneNumber: data.phoneNumber,
       },
     });
     return UserMapper.toDomain(user);
