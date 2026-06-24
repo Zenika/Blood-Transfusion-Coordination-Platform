@@ -14,5 +14,5 @@ export abstract class UserRepository {
     userId: string,
     newPassword: string,
   ): Promise<UserEntity>;
-  
+  abstract delete(userId: string): Promise<void>;
 }

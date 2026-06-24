@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
@@ -11,6 +19,7 @@ import { LoginDto } from '../dto/login.dto';
 import { RegisterDto } from '../dto/register.dto';
 import { UpdatePasswordDto } from '../dto/update-password.dto';
 import { UpdatePasswordUseCase } from '../../application/use-cases/update-password.use-case';
+import { DeleteUseCase } from '../../application/use-cases/delete.use-case';
 
 @Controller('user')
 export class UserController {
@@ -19,6 +28,7 @@ export class UserController {
     private readonly loginUseCase: LoginUseCase,
     private readonly updateUseCase: UpdateUseCase,
     private readonly updatePasswordUseCase: UpdatePasswordUseCase,
+    private readonly deleteUseCase: DeleteUseCase,
   ) {}
   @Post('register')
   register(@Body() dto: RegisterDto) {
@@ -44,5 +54,11 @@ export class UserController {
   @ApiParam({ name: 'id', type: 'string', description: 'user id' })
   updatePassword(@Param('id') id: string, @Body() dto: UpdatePasswordDto) {
     return this.updatePasswordUseCase.execute(id, dto);
+  }
+
+  @Delete(':id')
+  @ApiParam({ name: 'id', type: 'string', description: 'user id' })
+  delete(@Param('id') id: string) {
+    return this.deleteUseCase.execute(id);
   }
 }
