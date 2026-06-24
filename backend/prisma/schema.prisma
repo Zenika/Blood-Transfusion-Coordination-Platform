@@ -7,19 +7,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id             String    @id @default(uuid())
-  firstName      String
-  lastName       String
-  email          String    @unique
-  hashedPassword String
-  phoneNumber    String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  role           UserRole? @default(PATIENT)
-}
-
+// ---------------------------------------------------ENUMS-----------------------------------------
 enum UserRole {
   PATIENT
   DONOR
+}
+
+enum BloodType {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum EligibilityStatus {
+  PENDING_REVIEW
+  ELIGIBLE
+  TEMPORARILY_DEFERRED
+  PERMANENTLY_DEFERRED
+}
+
+// -----------------------------------------------------Models--------------------------------------
+model User {
+  id             String         @id @default(uuid())
+  firstName      String
+  lastName       String
+  email          String         @unique
+  hashedPassword String
+  phoneNumber    String?        @unique
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  role           UserRole      @default(PATIENT)
+  medicalStatus  MedicalStatus?
+}
+
+model MedicalStatus {
+  id                String            @id @default(uuid())
+  userId            String            @unique
+  bloodType         BloodType
+  eligibilityStatus EligibilityStatus @default(PENDING_REVIEW)
+  lastDonationDate  DateTime?
+  dateOfBirth       DateTime?
+  weight            Float?
+  height            Float?
+  medicalNotes      String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  user              User              @relation(fields: [userId], references: [id])
 }

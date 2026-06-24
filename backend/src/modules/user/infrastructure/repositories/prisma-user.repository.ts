@@ -5,10 +5,12 @@ import { CreateUserData } from 'src/shared/types/create-user-data.type';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { UserMapper } from '../mappers/user.mapper';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserType } from 'src/shared/types/update-user.type';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(data: CreateUserData): Promise<UserEntity> {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const user = await this.prisma.user.create({
@@ -25,6 +27,22 @@ export class PrismaUserRepository implements UserRepository {
   async findByEmail(email: string): Promise<any> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) return null;
+    return UserMapper.toDomain(user);
+  }
+  async findById(id: string): Promise<UserEntity | null> {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    if (!user) return null;
+    return UserMapper.toDomain(user);
+  }
+  async update(
+    userId: string,
+    data: Partial<UpdateUserType>,
+  ): Promise<UserEntity> {
+    const user = await this.prisma.user.update({
+      where: { id: userId },
+      data,
+    });
+
     return UserMapper.toDomain(user);
   }
 }

@@ -1,15 +1,18 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from './presentation/controllers/auth.controller';
-import { RegisterUseCase } from './application/use-cases/register.use-case';
+import { UserController } from './presentation/controllers/user.controller';
 import { UserRepository } from './domain/repositories/user.repository';
 import { PrismaUserRepository } from './infrastructure/repositories/prisma-user.repository';
-import { LoginUseCase } from './application/use-cases/login.use-case';
+import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PrismaModule } from 'src/shared/prisma/prisma.module';
+import { RegisterUseCase } from './application/use-cases/register.use-case';
+import { LoginUseCase } from './application/use-cases/login.use-case';
+import { UpdateUseCase } from './application/use-cases/update-user.use-case';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 
 @Module({
   imports: [
+    PrismaModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -18,15 +21,16 @@ import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
       }),
     }),
   ],
-  controllers: [AuthController],
   providers: [
-    RegisterUseCase,
     {
       provide: UserRepository,
       useClass: PrismaUserRepository,
     },
+    RegisterUseCase,
     LoginUseCase,
+    UpdateUseCase,
     JwtStrategy,
   ],
+  controllers: [UserController],
 })
-export class AuthModule {}
+export class UserModule {}

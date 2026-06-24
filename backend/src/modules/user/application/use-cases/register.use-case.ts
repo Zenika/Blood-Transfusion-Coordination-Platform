@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { UserRepository } from '../../domain/repositories/user.repository';
-import { RegisterDto } from '../../presentation/dto/register.dto';
 import { UserResponse } from 'src/shared/types/user-reponse.type';
+import { UserRepository } from '../../domain/repositories/user.repository';
 import { UserMapper } from '../../infrastructure/mappers/user.mapper';
+import { RegisterDto } from '../../presentation/dto/register.dto';
 
 @Injectable()
 export class RegisterUseCase {

@@ -4,4 +4,6 @@ export type UserResponse = {
   lastName: string;
   email: string;
   role: 'PATIENT' | 'DONOR';
+  createdAt: Date;
+  updatedAt: Date;
 };
