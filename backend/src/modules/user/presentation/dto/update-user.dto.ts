@@ -4,7 +4,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
-  Matches,
 } from 'class-validator';
 export class UpdateUserDto {
   @ApiProperty()

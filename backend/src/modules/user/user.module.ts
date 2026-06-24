@@ -9,6 +9,7 @@ import { RegisterUseCase } from './application/use-cases/register.use-case';
 import { LoginUseCase } from './application/use-cases/login.use-case';
 import { UpdateUseCase } from './application/use-cases/update-user.use-case';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
+import { UpdatePasswordUseCase } from './application/use-cases/update-password.use-case';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
     RegisterUseCase,
     LoginUseCase,
     UpdateUseCase,
+    UpdatePasswordUseCase,
     JwtStrategy,
   ],
   controllers: [UserController],

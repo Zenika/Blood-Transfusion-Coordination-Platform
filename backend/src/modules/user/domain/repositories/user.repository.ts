@@ -10,4 +10,9 @@ export abstract class UserRepository {
     userId: string,
     data: Partial<UpdateUserType>,
   ): Promise<UserEntity>;
+  abstract updatePassword(
+    userId: string,
+    newPassword: string,
+  ): Promise<UserEntity>;
+  
 }

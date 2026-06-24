@@ -45,4 +45,16 @@ export class PrismaUserRepository implements UserRepository {
 
     return UserMapper.toDomain(user);
   }
+
+  async updatePassword(
+    userId: string,
+    newPassword: string,
+  ): Promise<UserEntity> {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const user = await this.prisma.user.update({
+      where: { id: userId },
+      data: { hashedPassword },
+    });
+    return UserMapper.toDomain(user);
+  }
 }

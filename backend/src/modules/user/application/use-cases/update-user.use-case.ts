@@ -6,13 +6,13 @@ import {
 } from '@nestjs/common';
 import { UserRepository } from '../../domain/repositories/user.repository';
 import { UserEntity } from '../../domain/entities/user.entity';
-import { CreateUserData } from 'src/shared/types/create-user-data.type';
 import { UpdateUserType } from 'src/shared/types/update-user.type';
+import { UpdateUserDto } from '../../presentation/dto/update-user.dto';
 
 @Injectable()
 export class UpdateUseCase {
   constructor(private readonly userRepository: UserRepository) {}
-  async execute(userId: string, data: Partial<CreateUserData>) {
+  async execute(userId: string, data: UpdateUserDto) {
     if (!userId) {
       throw new BadRequestException('ID required');
     }
