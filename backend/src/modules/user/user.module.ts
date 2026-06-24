@@ -11,6 +11,7 @@ import { UpdateUseCase } from './application/use-cases/update-user.use-case';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { UpdatePasswordUseCase } from './application/use-cases/update-password.use-case';
 import { DeleteUseCase } from './application/use-cases/delete.use-case';
+import { GetUseCase } from './application/use-cases/get.use-case';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { DeleteUseCase } from './application/use-cases/delete.use-case';
     UpdateUseCase,
     UpdatePasswordUseCase,
     DeleteUseCase,
+    GetUseCase,
     JwtStrategy,
   ],
   controllers: [UserController],
