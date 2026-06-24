@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { PrismaModule } from './shared/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './modules/user/user.module';
+import { MedicalStatusModule } from './modules/MedicalStatus/medical-status.module';
 
 @Module({
   imports: [
+    MedicalStatusModule,
     UserModule,
-    // AuthModule,
     PrismaModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
