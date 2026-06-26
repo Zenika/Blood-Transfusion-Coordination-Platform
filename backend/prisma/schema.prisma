@@ -51,8 +51,8 @@ model MedicalStatus {
   bloodType         BloodType
   eligibilityStatus EligibilityStatus @default(PENDING_REVIEW)
   lastDonationDate  DateTime?
-  dateOfBirth       DateTime?
-  weight            Float?
+  dateOfBirth       DateTime
+  weight            Float
   height            Float?
   medicalNotes      String?
   createdAt         DateTime          @default(now())

@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsDate,
+  IsDateString,
   IsEnum,
-  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -12,42 +11,34 @@ import { EligibilityStatus } from 'src/shared/enums/eligibility-status.enum';
 
 export class CreateMedicalStatusDto {
   @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  userId!: string;
-
-  @ApiProperty()
   @IsEnum(BloodType)
-  @IsNotEmpty()
   bloodType!: BloodType;
 
   @ApiProperty()
-  @IsEnum(EligibilityStatus)
-  @IsNotEmpty()
-  eligibilityStatus!: EligibilityStatus;
+  @IsDateString()
+  dateOfBirth!: string;
 
   @ApiProperty()
-  @IsDate()
-  @IsNotEmpty()
-  dateOfBirth!: Date;
+  @IsOptional()
+  @IsDateString()
+  lastDonationDate?: string;
 
   @ApiProperty()
   @IsNumber()
-  @IsOptional()
-  weight?: number;
+  weight!: number;
 
   @ApiProperty()
-  @IsNumber()
   @IsOptional()
+  @IsNumber()
   height?: number;
 
   @ApiProperty()
-  @IsDate()
-  @IsNotEmpty()
-  lastDonationDate!: Date;
+  @IsOptional()
+  @IsString()
+  medicalNotes?: string;
 
   @ApiProperty()
-  @IsString()
   @IsOptional()
-  medicalNotes?: string;
+  @IsEnum(EligibilityStatus)
+  eligibilityStatus!: EligibilityStatus;
 }

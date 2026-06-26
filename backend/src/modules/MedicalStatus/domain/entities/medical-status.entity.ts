@@ -7,10 +7,10 @@ export class MedicalStatusEntity {
   bloodType!: BloodType;
   eligibilityStatus!: EligibilityStatus;
   dateOfBirth!: Date;
-  weight?: number;
-  height?: number;
-  lastDonationDate?: Date;
-  medicalNotes?: string;
+  lastDonationDate!: Date | null;
+  weight!: number;
+  height!: number | null;
+  medicalNotes!: string | null;
   createdAt!: Date;
   updatedAt!: Date;
 }
