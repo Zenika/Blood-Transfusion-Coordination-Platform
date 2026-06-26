@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MedicalStatusController } from './presentation/controllers/medical-status.controller';
 import { CreateMedicalStatusUseCase } from './application/use-cases/register-medical-status.use-case';
 import { GetMedicalStatusUseCase } from './application/use-cases/get-medical-status.use-case';
+import { UpdateMedicalStatusUseCase } from './application/use-cases/update-medical-status.use-case';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { GetMedicalStatusUseCase } from './application/use-cases/get-medical-sta
     { provide: MedicalStatusRepository, useClass: PrismaMedicalStatus },
     CreateMedicalStatusUseCase,
     GetMedicalStatusUseCase,
+    UpdateMedicalStatusUseCase,
   ],
   controllers: [MedicalStatusController],
 })
