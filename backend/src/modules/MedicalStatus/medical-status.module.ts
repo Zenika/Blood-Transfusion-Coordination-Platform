@@ -8,6 +8,7 @@ import { MedicalStatusController } from './presentation/controllers/medical-stat
 import { CreateMedicalStatusUseCase } from './application/use-cases/register-medical-status.use-case';
 import { GetMedicalStatusUseCase } from './application/use-cases/get-medical-status.use-case';
 import { UpdateMedicalStatusUseCase } from './application/use-cases/update-medical-status.use-case';
+import { UpdateLastDonationDateUseCase } from './application/use-cases/update-last-donation-date.use-case';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UpdateMedicalStatusUseCase } from './application/use-cases/update-medic
     CreateMedicalStatusUseCase,
     GetMedicalStatusUseCase,
     UpdateMedicalStatusUseCase,
+    UpdateLastDonationDateUseCase,
   ],
   controllers: [MedicalStatusController],
 })

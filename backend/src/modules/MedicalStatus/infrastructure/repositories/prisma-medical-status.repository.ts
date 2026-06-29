@@ -59,4 +59,15 @@ export class PrismaMedicalStatus implements MedicalStatusRepository {
     });
     return MedicalStatusMapper.toDomain(medicalStatus);
   }
+
+  async updateLastDonationDate(
+    userId: string,
+    date: Date,
+  ): Promise<MedicalStatusEntity> {
+    const medicalStatus = await this.prisma.medicalStatus.update({
+      where: { userId: userId },
+      data: { lastDonationDate: date },
+    });
+    return MedicalStatusMapper.toDomain(medicalStatus);
+  }
 }

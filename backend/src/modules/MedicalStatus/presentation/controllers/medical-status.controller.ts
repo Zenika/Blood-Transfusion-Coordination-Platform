@@ -8,6 +8,8 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { GetMedicalStatusUseCase } from '../../application/use-cases/get-medical-status.use-case';
 import { UpdateMedicalStatusUseCase } from '../../application/use-cases/update-medical-status.use-case';
 import { UpdateMedicalStatusDto } from '../dto/update-medical-status.dto';
+import { UpdatelastDonationDateDto } from '../dto/last-donation-date.dto';
+import { UpdateLastDonationDateUseCase } from '../../application/use-cases/update-last-donation-date.use-case';
 
 @Controller('medical-status')
 export class MedicalStatusController {
@@ -15,6 +17,7 @@ export class MedicalStatusController {
     private readonly createMedicalStatusUseCase: CreateMedicalStatusUseCase,
     private readonly getMedicalStatusUseCase: GetMedicalStatusUseCase,
     private readonly updateMedicalStatusUseCase: UpdateMedicalStatusUseCase,
+    private readonly updateLastDonationDateUseCase: UpdateLastDonationDateUseCase,
   ) {}
 
   @ApiBearerAuth()
@@ -41,5 +44,15 @@ export class MedicalStatusController {
     @Body() dto: UpdateMedicalStatusDto,
   ) {
     return await this.updateMedicalStatusUseCase.execute(dto, user.userId);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Patch('last-donation-date')
+  async updateLastDonationDate(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: UpdatelastDonationDateDto,
+  ) {
+    return await this.updateLastDonationDateUseCase.execute(user.userId, dto);
   }
 }

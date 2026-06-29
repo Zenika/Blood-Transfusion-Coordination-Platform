@@ -14,4 +14,8 @@ export abstract class MedicalStatusRepository {
     data: Partial<UpdateMedicalStatusData>,
     userId: string,
   ): Promise<MedicalStatusEntity>;
+  abstract updateLastDonationDate(
+    userId: string,
+    date: Date,
+  ): Promise<MedicalStatusEntity>;
 }
