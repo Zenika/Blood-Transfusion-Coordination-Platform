@@ -31,6 +31,11 @@ enum EligibilityStatus {
   PERMANENTLY_DEFERRED
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 // -----------------------------------------------------Models--------------------------------------
 model User {
   id             String         @id @default(uuid())
@@ -41,7 +46,7 @@ model User {
   phoneNumber    String?        @unique
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
-  role           UserRole      @default(PATIENT)
+  role           UserRole       @default(PATIENT)
   medicalStatus  MedicalStatus?
 }
 
@@ -55,6 +60,7 @@ model MedicalStatus {
   weight            Float
   height            Float?
   medicalNotes      String?
+  gender            Gender
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
   user              User              @relation(fields: [userId], references: [id])

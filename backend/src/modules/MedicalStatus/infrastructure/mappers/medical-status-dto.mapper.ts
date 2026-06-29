@@ -4,6 +4,7 @@ import { CreateMedicalStatusData } from 'src/shared/types/create-medical-status-
 export class MedicalStatusDtoMapper {
   static toDomain(data: CreateMedicalStatusDto): CreateMedicalStatusData {
     return {
+      gender: data.gender,
       dateOfBirth: new Date(data.dateOfBirth),
       lastDonationDate: data.lastDonationDate
         ? new Date(data.lastDonationDate)

@@ -21,6 +21,9 @@ export class UpdateMedicalStatusUseCase {
     const user = await this.medicalStatusRepository.findById(userId);
     if (!user) throw new NotFoundException('User not found');
     const updateMedicalStatusData: Partial<UpdateMedicalStatusData> = {};
+    if (data.gender) {
+      updateMedicalStatusData.gender = data.gender;
+    }
     if (data.bloodType !== undefined) {
       updateMedicalStatusData.bloodType = data.bloodType;
     }

@@ -16,7 +16,6 @@ export class PrismaMedicalStatus implements MedicalStatusRepository {
   async findUserById(id: string): Promise<User | null> {
     return await this.prisma.user.findUnique({ where: { id: id } });
   }
-
   async create(
     data: CreateMedicalStatusData,
     userId: string,
@@ -28,6 +27,7 @@ export class PrismaMedicalStatus implements MedicalStatusRepository {
             id: userId,
           },
         },
+        gender: data.gender,
         dateOfBirth: data.dateOfBirth,
         bloodType: BloodTypeMapper.toPrisma(data.bloodType),
         medicalNotes: data.medicalNotes,
