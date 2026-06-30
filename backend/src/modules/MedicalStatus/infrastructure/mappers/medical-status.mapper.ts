@@ -20,7 +20,7 @@ export class MedicalStatusMapper {
       height: data.height,
       medicalNotes: data.medicalNotes,
       createdAt: data.createdAt,
-      updatedAt: data.createdAt,
+      updatedAt: data.updatedAt,
     };
   }
 }

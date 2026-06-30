@@ -3,7 +3,7 @@ import { JwtAuthGuard } from 'src/modules/user/infrastructure/guards/jwt-auth.gu
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import type { AuthenticatedUser } from 'src/shared/types/authenticated-user.type';
 import { CreateMedicalStatusDto } from '../dto/create-medical-status.dto';
-import { CreateMedicalStatusUseCase } from '../../application/use-cases/register-medical-status.use-case';
+import { CreateMedicalStatusUseCase } from '../../application/use-cases/create-medical-status.use-case';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { GetMedicalStatusUseCase } from '../../application/use-cases/get-medical-status.use-case';
 import { UpdateMedicalStatusUseCase } from '../../application/use-cases/update-medical-status.use-case';

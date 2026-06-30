@@ -38,5 +38,6 @@ import { GetUseCase } from './application/use-cases/get.use-case';
     JwtStrategy,
   ],
   controllers: [UserController],
+  exports: [UserRepository],
 })
 export class UserModule {}
