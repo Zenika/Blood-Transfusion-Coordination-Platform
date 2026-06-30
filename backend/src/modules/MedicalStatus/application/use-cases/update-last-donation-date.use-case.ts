@@ -5,19 +5,22 @@ import {
 } from '@nestjs/common';
 import { UpdatelastDonationDateDto } from '../../presentation/dto/last-donation-date.dto';
 import { MedicalStatusRepository } from '../../domain/repositories/medical-status.repository';
+import { UserRepository } from 'src/modules/user/domain/repositories/user.repository';
 
 @Injectable()
 export class UpdateLastDonationDateUseCase {
   constructor(
     private readonly medicalStatusRepository: MedicalStatusRepository,
+    private readonly userRepository: UserRepository,
   ) {}
   async execute(userId: string, data: UpdatelastDonationDateDto) {
     const now = new Date();
     const newDonationDate = new Date(data.date);
     if (!userId) throw new BadRequestException('User ID required');
-    const user = await this.medicalStatusRepository.findUserById(userId);
+    const user = await this.userRepository.findById(userId);
     if (!user) throw new NotFoundException('User not found');
-    const medicalStatus = await this.medicalStatusRepository.findById(userId);
+    const medicalStatus =
+      await this.medicalStatusRepository.findByUserId(userId);
     if (!medicalStatus)
       throw new NotFoundException('User does not have a medical status');
     if (isNaN(newDonationDate.getTime()))
@@ -27,7 +30,6 @@ export class UpdateLastDonationDateUseCase {
     if (newDonationDate < legalDonationDate)
       throw new BadRequestException(
         'User must be at least 17 year on the donation date',
-        `${legalDonationDate.toString()} ${newDonationDate.toString()} `,
       );
     if (newDonationDate > now)
       throw new BadRequestException('Donation date must be in the past');
