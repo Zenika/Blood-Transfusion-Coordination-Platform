@@ -8,15 +8,15 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { UpdateUserDto } from '../modules/user/presentation/dto/update-user.dto';
 
 import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import type { AuthenticatedUser } from 'src/shared/types/authenticated-user.type';
-import { JwtAuthGuard } from '../../infrastructure/guards/jwt-auth.guard';
-import { LoginDto } from '../dto/login.dto';
-import { RegisterDto } from '../dto/register.dto';
-import { UpdatePasswordDto } from '../dto/update-password.dto';
+import { JwtAuthGuard } from '../modules/user/infrastructure/guards/jwt-auth.guard';
+import { LoginDto } from '../modules/user/presentation/dto/login.dto';
+import { RegisterDto } from '../modules/user/presentation/dto/register.dto';
+import { UpdatePasswordDto } from '../modules/user/presentation/dto/update-password.dto';
 import {
   RegisterUseCase,
   LoginUseCase,

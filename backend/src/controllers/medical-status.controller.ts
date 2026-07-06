@@ -2,17 +2,17 @@ import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/modules/user/infrastructure/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import type { AuthenticatedUser } from 'src/shared/types/authenticated-user.type';
-import { CreateMedicalStatusDto } from '../dto/create-medical-status.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-import { UpdateMedicalStatusDto } from '../dto/update-medical-status.dto';
-import { UpdatelastDonationDateDto } from '../dto/last-donation-date.dto';
 import {
   CreateMedicalStatusUseCase,
   GetMedicalStatusUseCase,
   UpdateMedicalStatusUseCase,
   UpdateLastDonationDateUseCase,
 } from 'src/use-cases/medical-status.use-cases';
+import { CreateMedicalStatusDto } from 'src/modules/MedicalStatus/presentation/dto/create-medical-status.dto';
+import { UpdatelastDonationDateDto } from 'src/modules/MedicalStatus/presentation/dto/last-donation-date.dto';
+import { UpdateMedicalStatusDto } from 'src/modules/MedicalStatus/presentation/dto/update-medical-status.dto';
 
 @Controller('medical-status')
 export class MedicalStatusController {

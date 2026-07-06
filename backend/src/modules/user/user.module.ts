@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './presentation/controllers/user.controller';
+import { UserController } from '../../controllers/user.controller';
 import { UserRepository } from './domain/repositories/user.repository';
 import { PrismaUserRepository } from './infrastructure/repositories/prisma-user.repository';
 import { JwtModule } from '@nestjs/jwt';
