@@ -10,7 +10,7 @@ import {
   UpdateMedicalStatusUseCase,
   UpdateLastDonationDateUseCase,
 } from 'src/use-cases/medical-status.use-cases';
-import { MedicalStatusController } from 'src/controllers/medical-status.controller';
+import { MedicalStatusController } from 'src/presentation/controllers/medical-status.controller';
 
 @Module({
   imports: [

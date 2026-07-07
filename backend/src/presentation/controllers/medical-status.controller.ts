@@ -10,9 +10,11 @@ import {
   UpdateMedicalStatusUseCase,
   UpdateLastDonationDateUseCase,
 } from 'src/use-cases/medical-status.use-cases';
-import { CreateMedicalStatusDto } from 'src/modules/MedicalStatus/presentation/dto/create-medical-status.dto';
-import { UpdatelastDonationDateDto } from 'src/modules/MedicalStatus/presentation/dto/last-donation-date.dto';
-import { UpdateMedicalStatusDto } from 'src/modules/MedicalStatus/presentation/dto/update-medical-status.dto';
+import {
+  CreateMedicalStatusDto,
+  UpdateMedicalStatusDto,
+  UpdatelastDonationDateDto,
+} from '../dto/medical-status.dto';
 
 @Controller('medical-status')
 export class MedicalStatusController {
