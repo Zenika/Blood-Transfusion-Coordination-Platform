@@ -47,3 +47,49 @@ export class CreateMedicalStatusDto {
   @IsEnum(EligibilityStatus)
   eligibilityStatus!: EligibilityStatus;
 }
+export class UpdatelastDonationDateDto {
+  @ApiProperty()
+  @IsDateString()
+  date!: string;
+}
+export class UpdateMedicalStatusDto {
+  @IsOptional()
+  @ApiProperty()
+  @IsEnum(BloodType)
+  bloodType!: BloodType;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsEnum(Gender)
+  gender!: Gender;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsDateString()
+  dateOfBirth!: string;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsDateString()
+  lastDonationDate?: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  weight!: number;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  height?: number;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  medicalNotes?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsEnum(EligibilityStatus)
+  eligibilityStatus!: EligibilityStatus;
+}

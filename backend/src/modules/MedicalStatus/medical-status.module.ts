@@ -4,13 +4,13 @@ import { MedicalStatusRepository } from './domain/repositories/medical-status.re
 import { PrismaMedicalStatus } from './infrastructure/repositories/prisma-medical-status.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MedicalStatusController } from './presentation/controllers/medical-status.controller';
 import {
   CreateMedicalStatusUseCase,
   GetMedicalStatusUseCase,
   UpdateMedicalStatusUseCase,
   UpdateLastDonationDateUseCase,
 } from 'src/use-cases/medical-status.use-cases';
+import { MedicalStatusController } from 'src/presentation/controllers/medical-status.controller';
 
 @Module({
   imports: [
