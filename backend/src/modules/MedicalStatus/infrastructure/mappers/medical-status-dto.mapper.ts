@@ -1,4 +1,4 @@
-import { CreateMedicalStatusDto } from '../../presentation/dto/create-medical-status.dto';
+import { CreateMedicalStatusDto } from 'src/presentation/dto/medical-status.dto';
 import { CreateMedicalStatusData } from 'src/shared/types/create-medical-status-data.type';
 
 export class MedicalStatusDtoMapper {

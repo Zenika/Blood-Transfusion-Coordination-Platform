@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserValidator } from 'src/modules/user/application/validators/user.validator';
 import { UserRepository } from 'src/modules/user/domain/repositories/user.repository';
-import { LoginDto } from 'src/modules/user/presentation/dto/login.dto';
-import { RegisterDto } from 'src/modules/user/presentation/dto/register.dto';
-import { UpdatePasswordDto } from 'src/modules/user/presentation/dto/update-password.dto';
-import { UpdateUserDto } from 'src/modules/user/presentation/dto/update-user.dto';
+import {
+  LoginDto,
+  RegisterDto,
+  UpdatePasswordDto,
+  UpdateUserDto,
+} from 'src/presentation/dto/user.dto';
+
 import { AuthResponse } from 'src/shared/types/auth-reponse.type';
 import { UpdateUserType } from 'src/shared/types/update-user.type';
 import { UserResponse } from 'src/shared/types/user-reponse.type';
