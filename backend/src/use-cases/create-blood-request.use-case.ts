@@ -10,6 +10,6 @@ export class CreateBloodRequestUseCase {
   ) {}
   async execute(userId: string, data: createBloodRequestDto) {
     const bloodRequest = BloodRequestDtoMapper.toDomain(data, userId);
-    return await this.bloodRequestRepository.create(bloodRequest);
+    return await this.bloodRequestRepository.create(userId, bloodRequest);
   }
 }
