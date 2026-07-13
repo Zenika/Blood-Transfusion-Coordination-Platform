@@ -6,4 +6,6 @@ export abstract class BloodRequestRepository {
     patientId: string,
     data: CreateBloodRequestData,
   ): Promise<BloodRequestEntity>;
+
+  abstract findById(bloodRequestId: string): Promise<BloodRequestEntity | null>;
 }

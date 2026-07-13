@@ -9,6 +9,7 @@ import { BloodRequestMapper } from '../mappers/blood-request.mapper';
 
 export class PrismaBloodRequestRepository implements BloodRequestRepository {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(
     patientId: string,
     data: CreateBloodRequestData,
@@ -26,5 +27,12 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
       },
     });
     return BloodRequestMapper.toDomain(BloodRequest);
+  }
+
+  async findById(bloodRequestId: string): Promise<BloodRequestEntity | null> {
+    const bloodRequest = await this.prisma.bloodRequest.findUnique({
+      where: { id: bloodRequestId },
+    });
+    return bloodRequest ? BloodRequestMapper.toDomain(bloodRequest) : null;
   }
 }
