@@ -4,6 +4,7 @@ import { createBloodRequestDto } from 'src/presentation/dto/blood-request.dto';
 import { BloodRequestDtoMapper } from 'src/modules/bloodRequest/infrastructure/mappers/blood-request-dto.mapper';
 import { BloodRequestEntity } from 'src/modules/bloodRequest/domain/entities/blood-request.entity';
 import { BloodRequestValidator } from 'src/modules/bloodRequest/application/validators/blood-request.validator';
+import { UserValidator } from 'src/modules/user/application/validators/user.validator';
 
 @Injectable()
 export class CreateBloodRequestUseCase {
@@ -25,5 +26,17 @@ export class GetBloodRequestUseCase {
   async execute(bloodRequestId: string): Promise<BloodRequestEntity | null> {
     await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
     return await this.bloodRequestRepository.findById(bloodRequestId);
+  }
+}
+
+@Injectable()
+export class GetBloodRequestsUseCase {
+  constructor(
+    private readonly bloodRequestRepository: BloodRequestRepository,
+    private readonly userValidator: UserValidator,
+  ) {}
+  async execute(userId: string) {
+    await this.userValidator.ensureUserExistsById(userId);
+    return await this.bloodRequestRepository.findBloodRequestsByUserId(userId);
   }
 }

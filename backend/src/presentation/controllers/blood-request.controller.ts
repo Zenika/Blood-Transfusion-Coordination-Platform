@@ -5,6 +5,7 @@ import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
 import type { AuthenticatedUser } from 'src/shared/types/authenticated-user.type';
 import {
   CreateBloodRequestUseCase,
+  GetBloodRequestsUseCase,
   GetBloodRequestUseCase,
 } from 'src/use-cases/blood-request.use-case';
 import { createBloodRequestDto } from '../dto/blood-request.dto';
@@ -14,6 +15,7 @@ export class BloodRequestController {
   constructor(
     private readonly createBloodRequestUseCase: CreateBloodRequestUseCase,
     private readonly getBloodRequestUseCase: GetBloodRequestUseCase,
+    private readonly getBloodRequestsUseCase: GetBloodRequestsUseCase,
   ) {}
 
   @Post()
@@ -35,5 +37,12 @@ export class BloodRequestController {
   @UseGuards(JwtAuthGuard)
   async get(@Param('id') id: string) {
     await this.getBloodRequestUseCase.execute(id);
+  }
+
+  @Get()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async getAll(@CurrentUser() user: AuthenticatedUser) {
+    await this.getBloodRequestsUseCase.execute(user.userId);
   }
 }
