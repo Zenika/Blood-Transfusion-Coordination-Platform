@@ -8,4 +8,8 @@ export abstract class BloodRequestRepository {
   ): Promise<BloodRequestEntity>;
 
   abstract findById(bloodRequestId: string): Promise<BloodRequestEntity | null>;
+  abstract findBloodRequestsByUserId(
+    userId: string,
+  ): Promise<BloodRequestEntity[] | null>;
+  
 }
