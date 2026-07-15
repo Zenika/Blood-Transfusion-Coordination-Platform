@@ -48,10 +48,22 @@ export class GetBloodRequestsUseCase {
 export class UpdateBloodRequestUseCase {
   constructor(
     private readonly bloodRequestRepository: BloodRequestRepository,
+    private readonly userValidator: UserValidator,
+    private readonly bloodRequestValidator: BloodRequestValidator,
   ) {}
-  async execute(bloodRequestId: string, dto: UpdateBloodRequestDto) {
+  async execute(
+    bloodRequestId: string,
+    userId: string,
+    dto: UpdateBloodRequestDto,
+  ) {
+    await this.userValidator.ensureUserExistsById(userId);
+    await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
+    this.bloodRequestValidator.ensureQuantityIsPositive(dto.quantity);
+    await this.bloodRequestValidator.ensureUserOwnsBloodRequest(
+      userId,
+      bloodRequestId,
+    );
     const data = BloodRequestDtoMapper.updateDtoToDomain(dto);
-    // validateurs and br
     await this.bloodRequestRepository.update(bloodRequestId, data);
   }
 }

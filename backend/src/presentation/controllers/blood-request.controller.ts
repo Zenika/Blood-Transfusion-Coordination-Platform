@@ -61,7 +61,11 @@ export class BloodRequestController {
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  async update(@Param('id') id: string, @Body() dto: UpdateBloodRequestDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateBloodRequestDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
     await this.updateBloodRequestUseCase.execute(id, dto);
   }
 }
