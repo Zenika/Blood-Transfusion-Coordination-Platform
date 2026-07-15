@@ -45,8 +45,8 @@ enum UrgencyLevel {
 
 enum BloodRequestStatus {
   PENDING
-  IN_PROGRESS
-  MATCHED
+  MATCHING
+  ACCEPTED
   COMPLETED
   CANCELLED
 }
@@ -88,14 +88,13 @@ model BloodRequest {
   patientId String
   patient   User   @relation(fields: [patientId], references: [id])
 
-  bloodTypeNeeded BloodType
-  quantity        Int
+  bloodType BloodType
+  quantity        Int?
 
   urgencyLevel UrgencyLevel
   status       BloodRequestStatus @default(PENDING)
 
-  medicalReason String
-  neededBefore  DateTime?
+  medicalReason String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

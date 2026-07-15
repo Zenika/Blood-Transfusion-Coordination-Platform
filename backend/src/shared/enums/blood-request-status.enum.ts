@@ -1,4 +1,4 @@
-export enum BloodRequestStatusEnum {
+export enum BloodRequestStatus {
   PENDING = 'PENDING',
   MATCHING = 'MATCHING',
   ACCEPTED = 'ACCEPTED',
