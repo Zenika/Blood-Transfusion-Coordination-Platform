@@ -1,11 +1,11 @@
 import { BloodRequestStatus as BloodRequestStatusPrisma } from '@prisma/client';
-import { BloodRequestStatusEnum } from 'src/shared/enums/blood-request-status.enum';
+import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 
 export class BloodRequestStatusMapper {
-  static toPrisma(type: BloodRequestStatusEnum): BloodRequestStatusPrisma {
+  static toPrisma(type: BloodRequestStatus): BloodRequestStatusPrisma {
     return type as BloodRequestStatusPrisma;
   }
-  static toDomain(type: BloodRequestStatusPrisma): BloodRequestStatusEnum {
-    return type as BloodRequestStatusEnum;
+  static toDomain(type: BloodRequestStatusPrisma): BloodRequestStatus {
+    return type as BloodRequestStatus;
   }
 }

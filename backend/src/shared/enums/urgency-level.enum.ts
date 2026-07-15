@@ -1,5 +1,5 @@
 export enum UrgencyLevel {
-  LOW = 'Low',
+  LOW = 'LOW',
   MEDIUM = 'MEDIUM',
   HIGH = 'HIGH',
   CRITICAL = 'CRITICAL',

@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { BloodRequestRepository } from '../modules/bloodRequest/domain/repositories/blood-request.repository';
-import { createBloodRequestDto } from 'src/presentation/dto/blood-request.dto';
+import {
+  createBloodRequestDto,
+  UpdateBloodRequestDto,
+} from 'src/presentation/dto/blood-request.dto';
 import { BloodRequestDtoMapper } from 'src/modules/bloodRequest/infrastructure/mappers/blood-request-dto.mapper';
 import { BloodRequestEntity } from 'src/modules/bloodRequest/domain/entities/blood-request.entity';
 import { BloodRequestValidator } from 'src/modules/bloodRequest/application/validators/blood-request.validator';
@@ -38,5 +41,17 @@ export class GetBloodRequestsUseCase {
   async execute(userId: string) {
     await this.userValidator.ensureUserExistsById(userId);
     return await this.bloodRequestRepository.findBloodRequestsByUserId(userId);
+  }
+}
+
+@Injectable()
+export class UpdateBloodRequestUseCase {
+  constructor(
+    private readonly bloodRequestRepository: BloodRequestRepository,
+  ) {}
+  async execute(bloodRequestId: string, dto: UpdateBloodRequestDto) {
+    const data = BloodRequestDtoMapper.updateDtoToDomain(dto);
+    // validateurs and br
+    await this.bloodRequestRepository.update(bloodRequestId, data);
   }
 }

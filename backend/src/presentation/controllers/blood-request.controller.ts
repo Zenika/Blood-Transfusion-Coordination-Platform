@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/user/infrastructure/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
@@ -7,8 +15,12 @@ import {
   CreateBloodRequestUseCase,
   GetBloodRequestsUseCase,
   GetBloodRequestUseCase,
+  UpdateBloodRequestUseCase,
 } from 'src/use-cases/blood-request.use-case';
-import { createBloodRequestDto } from '../dto/blood-request.dto';
+import {
+  createBloodRequestDto,
+  UpdateBloodRequestDto,
+} from '../dto/blood-request.dto';
 
 @Controller('blood-request')
 export class BloodRequestController {
@@ -16,6 +28,7 @@ export class BloodRequestController {
     private readonly createBloodRequestUseCase: CreateBloodRequestUseCase,
     private readonly getBloodRequestUseCase: GetBloodRequestUseCase,
     private readonly getBloodRequestsUseCase: GetBloodRequestsUseCase,
+    private readonly updateBloodRequestUseCase: UpdateBloodRequestUseCase,
   ) {}
 
   @Post()
@@ -44,5 +57,11 @@ export class BloodRequestController {
   @UseGuards(JwtAuthGuard)
   async getAll(@CurrentUser() user: AuthenticatedUser) {
     await this.getBloodRequestsUseCase.execute(user.userId);
+  }
+  @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async update(@Param('id') id: string, @Body() dto: UpdateBloodRequestDto) {
+    await this.updateBloodRequestUseCase.execute(id, dto);
   }
 }
