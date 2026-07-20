@@ -11,6 +11,9 @@ import {
   UpdateLastDonationDateUseCase,
 } from 'src/use-cases/medical-status.use-cases';
 import { MedicalStatusController } from 'src/presentation/controllers/medical-status.controller';
+import { MedicalStatusBuisnessRules } from './domain/buisness-rules/medical-status.rules';
+import { MedicalStatusValidator } from './application/validators/medical-status.validator';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -22,6 +25,7 @@ import { MedicalStatusController } from 'src/presentation/controllers/medical-st
         secret: configService.get<string>('JWT_SECRET'),
       }),
     }),
+    UserModule,
   ],
   providers: [
     { provide: MedicalStatusRepository, useClass: PrismaMedicalStatus },
@@ -29,6 +33,8 @@ import { MedicalStatusController } from 'src/presentation/controllers/medical-st
     GetMedicalStatusUseCase,
     UpdateMedicalStatusUseCase,
     UpdateLastDonationDateUseCase,
+    MedicalStatusBuisnessRules,
+    MedicalStatusValidator,
   ],
   controllers: [MedicalStatusController],
 })
