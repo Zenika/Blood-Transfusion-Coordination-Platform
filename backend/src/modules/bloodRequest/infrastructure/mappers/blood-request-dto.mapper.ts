@@ -1,8 +1,8 @@
-import { BloodRequestStatus } from '@prisma/client';
 import {
   createBloodRequestDto,
   UpdateBloodRequestDto,
 } from 'src/presentation/dto/blood-request.dto';
+import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 import { CreateBloodRequestData } from 'src/shared/types/create-blood-request-data.type';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
 
