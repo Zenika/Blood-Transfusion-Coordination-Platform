@@ -14,6 +14,7 @@ import {
   GetUseCase,
 } from 'src/use-cases/user.use-cases';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
+import { UserValidator } from './application/validators/user.validator';
 
 @Module({
   imports: [
@@ -38,7 +39,9 @@ import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
     DeleteUseCase,
     GetUseCase,
     JwtStrategy,
+    UserValidator,
   ],
   controllers: [UserController],
+  exports: [UserValidator],
 })
 export class UserModule {}
