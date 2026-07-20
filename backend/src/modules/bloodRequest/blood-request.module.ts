@@ -5,11 +5,17 @@ import { PrismaModule } from 'src/shared/prisma/prisma.module';
 import { BloodRequestController } from 'src/presentation/controllers/blood-request.controller';
 import {
   CreateBloodRequestUseCase,
+  GetBloodRequestsUseCase,
   GetBloodRequestUseCase,
+  UpdateBloodRequestStatus,
+  UpdateBloodRequestUseCase,
 } from 'src/use-cases/blood-request.use-case';
+import { BloodRequestValidator } from './application/validators/blood-request.validator';
+import { UserModule } from '../user/user.module';
+import { BloodRequestBuisnessRules } from './domain/buisness-rules/blood-request.rules';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, UserModule],
   providers: [
     {
       provide: BloodRequestRepository,
@@ -17,6 +23,12 @@ import {
     },
     CreateBloodRequestUseCase,
     GetBloodRequestUseCase,
+    GetBloodRequestsUseCase,
+    BloodRequestValidator,
+    UpdateBloodRequestUseCase,
+    BloodRequestBuisnessRules,
+    UpdateBloodRequestUseCase,
+    UpdateBloodRequestStatus,
   ],
   controllers: [BloodRequestController],
 })
