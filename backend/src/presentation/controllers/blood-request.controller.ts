@@ -41,7 +41,7 @@ export class BloodRequestController {
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: createBloodRequestDto,
   ) {
-    await this.createBloodRequestUseCase.execute(user.userId, dto);
+    return await this.createBloodRequestUseCase.execute(user.userId, dto);
   }
 
   @Get(':id')
@@ -52,14 +52,14 @@ export class BloodRequestController {
   })
   @UseGuards(JwtAuthGuard)
   async get(@Param('id') id: string) {
-    await this.getBloodRequestUseCase.execute(id);
+    return await this.getBloodRequestUseCase.execute(id);
   }
 
   @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async getAll(@CurrentUser() user: AuthenticatedUser) {
-    await this.getBloodRequestsUseCase.execute(user.userId);
+    return await this.getBloodRequestsUseCase.execute(user.userId);
   }
 
   @Patch(':id')
@@ -70,7 +70,7 @@ export class BloodRequestController {
     @Body() dto: UpdateBloodRequestDto,
     @CurrentUser() user: AuthenticatedUser,
   ) {
-    await this.updateBloodRequestUseCase.execute(id, user.userId, dto);
+    return await this.updateBloodRequestUseCase.execute(id, user.userId, dto);
   }
 
   @Patch('status/:id')
@@ -81,6 +81,10 @@ export class BloodRequestController {
     @Body() dto: UpdateBloodRequestStatusDto,
     @CurrentUser() user: AuthenticatedUser,
   ) {
-    await this.updateBloodRequestStatus.execute(id, user.userId, dto.status);
+    return await this.updateBloodRequestStatus.execute(
+      id,
+      user.userId,
+      dto.status,
+    );
   }
 }

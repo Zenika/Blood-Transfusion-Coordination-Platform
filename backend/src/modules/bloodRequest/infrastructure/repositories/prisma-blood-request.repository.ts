@@ -23,7 +23,7 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
         },
         bloodType: BloodTypeMapper.toPrisma(data.bloodType),
         urgencyLevel: UrgencyLevelMapper.toPrisma(data.urgencyLevel),
-        status: BloodRequestStatusMapper.toPrisma(data.status),
+        status: BloodRequestStatus.PENDING,
         medicalReason: data.medicalReason,
         quantity: data.quantity,
       },

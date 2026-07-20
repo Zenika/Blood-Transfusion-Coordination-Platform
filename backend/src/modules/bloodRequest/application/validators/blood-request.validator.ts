@@ -29,7 +29,7 @@ export class BloodRequestValidator {
     }
   }
   ensureQuantityIsPositive(quantity: number | undefined) {
-    if (!quantity) return;
+    if (quantity === undefined) return;
     if (quantity <= 0) throw new ConflictException('Quantity value not valid');
   }
   ensureStatusTransitionIsValid(

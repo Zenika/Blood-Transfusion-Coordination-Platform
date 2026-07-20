@@ -58,12 +58,10 @@ export class UpdateBloodRequestUseCase {
     dto: UpdateBloodRequestDto,
   ) {
     await this.userValidator.ensureUserExistsById(userId);
-    await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
+    const bloodRequest =
+      await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
     this.bloodRequestValidator.ensureQuantityIsPositive(dto.quantity);
-    await this.bloodRequestValidator.ensureUserOwnsBloodRequest(
-      userId,
-      bloodRequestId,
-    );
+    this.bloodRequestValidator.ensureUserOwnsBloodRequest(bloodRequest, userId);
     const data = BloodRequestDtoMapper.updateDtoToDomain(dto);
     await this.bloodRequestRepository.update(bloodRequestId, data);
   }
