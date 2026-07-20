@@ -54,3 +54,9 @@ export class UpdateBloodRequestDto {
   @IsOptional()
   quantity?: number;
 }
+
+export class UpdateBloodRequestStatusDto {
+  @ApiProperty()
+  @IsEnum(BloodRequestStatus)
+  status!: BloodRequestStatus;
+}

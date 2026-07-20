@@ -15,11 +15,13 @@ import {
   CreateBloodRequestUseCase,
   GetBloodRequestsUseCase,
   GetBloodRequestUseCase,
+  UpdateBloodRequestStatus,
   UpdateBloodRequestUseCase,
 } from 'src/use-cases/blood-request.use-case';
 import {
   createBloodRequestDto,
   UpdateBloodRequestDto,
+  UpdateBloodRequestStatusDto,
 } from '../dto/blood-request.dto';
 
 @Controller('blood-request')
@@ -29,6 +31,7 @@ export class BloodRequestController {
     private readonly getBloodRequestUseCase: GetBloodRequestUseCase,
     private readonly getBloodRequestsUseCase: GetBloodRequestsUseCase,
     private readonly updateBloodRequestUseCase: UpdateBloodRequestUseCase,
+    private readonly updateBloodRequestStatus: UpdateBloodRequestStatus,
   ) {}
 
   @Post()
@@ -58,6 +61,7 @@ export class BloodRequestController {
   async getAll(@CurrentUser() user: AuthenticatedUser) {
     await this.getBloodRequestsUseCase.execute(user.userId);
   }
+
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -66,6 +70,17 @@ export class BloodRequestController {
     @Body() dto: UpdateBloodRequestDto,
     @CurrentUser() user: AuthenticatedUser,
   ) {
-    await this.updateBloodRequestUseCase.execute(id, dto);
+    await this.updateBloodRequestUseCase.execute(id, user.userId, dto);
+  }
+
+  @Patch('status/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async UpdateStatus(
+    @Param('id') id: string,
+    @Body() dto: UpdateBloodRequestStatusDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
+    await this.updateBloodRequestStatus.execute(id, user.userId, dto.status);
   }
 }

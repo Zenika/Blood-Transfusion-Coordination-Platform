@@ -8,6 +8,7 @@ import { BloodRequestDtoMapper } from 'src/modules/bloodRequest/infrastructure/m
 import { BloodRequestEntity } from 'src/modules/bloodRequest/domain/entities/blood-request.entity';
 import { BloodRequestValidator } from 'src/modules/bloodRequest/application/validators/blood-request.validator';
 import { UserValidator } from 'src/modules/user/application/validators/user.validator';
+import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 
 @Injectable()
 export class CreateBloodRequestUseCase {
@@ -65,5 +66,32 @@ export class UpdateBloodRequestUseCase {
     );
     const data = BloodRequestDtoMapper.updateDtoToDomain(dto);
     await this.bloodRequestRepository.update(bloodRequestId, data);
+  }
+}
+
+@Injectable()
+export class UpdateBloodRequestStatus {
+  constructor(
+    private readonly bloodRequestRepository: BloodRequestRepository,
+    private readonly userValidator: UserValidator,
+    private readonly bloodRequestValidator: BloodRequestValidator,
+  ) {}
+  async execute(
+    userId: string,
+    bloodRequestId: string,
+    status: BloodRequestStatus,
+  ) {
+    await this.userValidator.ensureUserExistsById(userId);
+    const bloodRequest =
+      await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
+    this.bloodRequestValidator.ensureUserOwnsBloodRequest(bloodRequest, userId);
+    this.bloodRequestValidator.ensureStatusTransitionIsValid(
+      bloodRequest.status,
+      status,
+    );
+    await this.bloodRequestRepository.updateBloodRequestStatus(
+      bloodRequestId,
+      status,
+    );
   }
 }

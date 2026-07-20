@@ -7,6 +7,7 @@ import { UrgencyLevelMapper } from '../mappers/urgency-level.mapper';
 import { BloodTypeMapper } from 'src/modules/MedicalStatus/infrastructure/mappers/blood-type.mapper';
 import { BloodRequestMapper } from '../mappers/blood-request.mapper';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
+import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 
 export class PrismaBloodRequestRepository implements BloodRequestRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -55,6 +56,17 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
     const updatedBloodRequest = await this.prisma.bloodRequest.update({
       where: { id: bloodRequestId },
       data: updatedData,
+    });
+    return BloodRequestMapper.toDomain(updatedBloodRequest);
+  }
+
+  async updateBloodRequestStatus(
+    bloodRequestId: string,
+    status: BloodRequestStatus,
+  ): Promise<BloodRequestEntity> {
+    const updatedBloodRequest = await this.prisma.bloodRequest.update({
+      where: { id: bloodRequestId },
+      data: { status: BloodRequestStatusMapper.toPrisma(status) },
     });
     return BloodRequestMapper.toDomain(updatedBloodRequest);
   }
