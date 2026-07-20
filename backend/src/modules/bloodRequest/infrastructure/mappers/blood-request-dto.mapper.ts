@@ -1,3 +1,4 @@
+import { BloodRequestStatus } from '@prisma/client';
 import {
   createBloodRequestDto,
   UpdateBloodRequestDto,
@@ -14,7 +15,7 @@ export class BloodRequestDtoMapper {
       patientId: userId,
       bloodType: dto.bloodType,
       urgencyLevel: dto.urgencyLevel,
-      status: dto.status,
+      status: BloodRequestStatus.PENDING,
       medicalReason: dto.medicalReason ? dto.medicalReason : null,
       quantity: dto.quantity ?? null,
     };
