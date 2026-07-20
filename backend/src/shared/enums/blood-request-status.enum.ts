@@ -3,5 +3,5 @@ export enum BloodRequestStatus {
   MATCHING = 'MATCHING',
   ACCEPTED = 'ACCEPTED',
   COMPLETED = 'COMPLETED',
-  CANCELLED = 'CANCELLED                    ',
+  CANCELLED = 'CANCELLED',
 }

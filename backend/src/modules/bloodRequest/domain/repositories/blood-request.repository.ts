@@ -1,6 +1,7 @@
 import { CreateBloodRequestData } from 'src/shared/types/create-blood-request-data.type';
 import { BloodRequestEntity } from '../entities/blood-request.entity';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
+import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 
 export abstract class BloodRequestRepository {
   abstract create(
@@ -15,5 +16,9 @@ export abstract class BloodRequestRepository {
   abstract update(
     bloodRequestId: string,
     data: Partial<UpdateBloodRequestData>,
+  ): Promise<BloodRequestEntity>;
+  abstract updateBloodRequestStatus(
+    bloodRequestId: string,
+    status: BloodRequestStatus,
   ): Promise<BloodRequestEntity>;
 }
