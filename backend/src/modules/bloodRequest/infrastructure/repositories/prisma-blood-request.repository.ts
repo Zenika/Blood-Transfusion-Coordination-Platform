@@ -23,7 +23,7 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
         },
         bloodType: BloodTypeMapper.toPrisma(data.bloodType),
         urgencyLevel: UrgencyLevelMapper.toPrisma(data.urgencyLevel),
-        status: BloodRequestStatusMapper.toPrisma(data.status),
+        status: BloodRequestStatus.PENDING,
         medicalReason: data.medicalReason,
         quantity: data.quantity,
       },
@@ -39,13 +39,11 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
   }
   async findBloodRequestsByUserId(
     userId: string,
-  ): Promise<BloodRequestEntity[] | null> {
+  ): Promise<BloodRequestEntity[]> {
     const bloodRequests = await this.prisma.bloodRequest.findMany({
       where: { patientId: userId },
     });
-    return bloodRequests
-      ? bloodRequests.map((br) => BloodRequestMapper.toDomain(br))
-      : null;
+    return bloodRequests.map((br) => BloodRequestMapper.toDomain(br));
   }
 
   async update(

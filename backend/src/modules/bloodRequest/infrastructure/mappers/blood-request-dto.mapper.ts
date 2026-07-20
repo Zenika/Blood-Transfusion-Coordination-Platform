@@ -16,7 +16,7 @@ export class BloodRequestDtoMapper {
       urgencyLevel: dto.urgencyLevel,
       status: dto.status,
       medicalReason: dto.medicalReason ? dto.medicalReason : null,
-      quantity: dto.quantity ? dto.quantity : null,
+      quantity: dto.quantity ?? null,
     };
   }
   static updateDtoToDomain(dto: UpdateBloodRequestDto): UpdateBloodRequestData {

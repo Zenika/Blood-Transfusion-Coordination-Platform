@@ -14,10 +14,6 @@ export class createBloodRequestDto {
   urgencyLevel!: UrgencyLevel;
 
   @ApiProperty()
-  @IsEnum(BloodRequestStatus)
-  status!: BloodRequestStatus;
-
-  @ApiProperty()
   @IsString()
   @IsOptional()
   medicalReason?: string;
