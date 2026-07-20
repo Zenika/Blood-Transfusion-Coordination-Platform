@@ -9,6 +9,7 @@ import { BloodRequestEntity } from 'src/modules/bloodRequest/domain/entities/blo
 import { BloodRequestValidator } from 'src/modules/bloodRequest/application/validators/blood-request.validator';
 import { UserValidator } from 'src/modules/user/application/validators/user.validator';
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
+import { BloodRequestBuisnessRules } from 'src/modules/bloodRequest/domain/buisness-rules/blood-request.rules';
 
 @Injectable()
 export class CreateBloodRequestUseCase {
@@ -51,6 +52,7 @@ export class UpdateBloodRequestUseCase {
     private readonly bloodRequestRepository: BloodRequestRepository,
     private readonly userValidator: UserValidator,
     private readonly bloodRequestValidator: BloodRequestValidator,
+    private readonly bloodRequestBuisnessRules: BloodRequestBuisnessRules,
   ) {}
   async execute(
     bloodRequestId: string,
@@ -60,7 +62,7 @@ export class UpdateBloodRequestUseCase {
     await this.userValidator.ensureUserExistsById(userId);
     const bloodRequest =
       await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
-    this.bloodRequestValidator.ensureQuantityIsPositive(dto.quantity);
+    this.bloodRequestBuisnessRules.ensureQuantityIsPositive(dto.quantity);
     this.bloodRequestValidator.ensureUserOwnsBloodRequest(bloodRequest, userId);
     const data = BloodRequestDtoMapper.updateDtoToDomain(dto);
     await this.bloodRequestRepository.update(bloodRequestId, data);
@@ -73,6 +75,7 @@ export class UpdateBloodRequestStatus {
     private readonly bloodRequestRepository: BloodRequestRepository,
     private readonly userValidator: UserValidator,
     private readonly bloodRequestValidator: BloodRequestValidator,
+    private readonly bloodRequestBuisnessRules: BloodRequestBuisnessRules,
   ) {}
   async execute(
     userId: string,
@@ -83,7 +86,7 @@ export class UpdateBloodRequestStatus {
     const bloodRequest =
       await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
     this.bloodRequestValidator.ensureUserOwnsBloodRequest(bloodRequest, userId);
-    this.bloodRequestValidator.ensureStatusTransitionIsValid(
+    this.bloodRequestBuisnessRules.ensureStatusTransitionIsValid(
       bloodRequest.status,
       status,
     );

@@ -39,13 +39,11 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
   }
   async findBloodRequestsByUserId(
     userId: string,
-  ): Promise<BloodRequestEntity[] | null> {
+  ): Promise<BloodRequestEntity[]> {
     const bloodRequests = await this.prisma.bloodRequest.findMany({
       where: { patientId: userId },
     });
-    return bloodRequests
-      ? bloodRequests.map((br) => BloodRequestMapper.toDomain(br))
-      : null;
+    return bloodRequests.map((br) => BloodRequestMapper.toDomain(br));
   }
 
   async update(
