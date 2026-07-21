@@ -51,5 +51,10 @@ export class BloodRequestBuisnessRules {
     if (bloodRequest.status !== BloodRequestStatus.PENDING)
       throw new BadRequestException("Blood request can't be modified");
   }
- 
+  ensureNoActiveBloodRequestExists(bloodRequests: BloodRequestEntity[]) {
+    if (bloodRequests.length > 0)
+      throw new ConflictException(
+        'A patient cannot have more than one active blood request',
+      );
+  }
 }
