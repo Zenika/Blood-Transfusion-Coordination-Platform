@@ -15,8 +15,16 @@ import { BloodRequestBuisnessRules } from 'src/modules/bloodRequest/domain/buisn
 export class CreateBloodRequestUseCase {
   constructor(
     private readonly bloodRequestRepository: BloodRequestRepository,
+    private readonly bloodRequestBuisnessRules: BloodRequestBuisnessRules,
+    private readonly userValidator: UserValidator,
   ) {}
   async execute(userId: string, data: createBloodRequestDto) {
+    await this.userValidator.ensureUserExistsById(userId);
+    const bloodRequests =
+      await this.bloodRequestRepository.findActiveBloodRequestsByUserId(userId);
+    this.bloodRequestBuisnessRules.ensureNoActiveBloodRequestExists(
+      bloodRequests,
+    );
     const bloodRequest = BloodRequestDtoMapper.toDomain(data, userId);
     return await this.bloodRequestRepository.create(userId, bloodRequest);
   }
@@ -62,6 +70,7 @@ export class UpdateBloodRequestUseCase {
     await this.userValidator.ensureUserExistsById(userId);
     const bloodRequest =
       await this.bloodRequestValidator.ensureBloodRequestExists(bloodRequestId);
+    this.bloodRequestBuisnessRules.ensureBloodRequestCanBeUpdated(bloodRequest);
     this.bloodRequestBuisnessRules.ensureQuantityIsPositive(dto.quantity);
     this.bloodRequestValidator.ensureUserOwnsBloodRequest(bloodRequest, userId);
     const data = BloodRequestDtoMapper.updateDtoToDomain(dto);

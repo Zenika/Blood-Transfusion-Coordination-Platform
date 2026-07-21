@@ -4,6 +4,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
+import { BloodRequestEntity } from '../entities/blood-request.entity';
 
 @Injectable()
 export class BloodRequestBuisnessRules {
@@ -44,5 +45,16 @@ export class BloodRequestBuisnessRules {
         `Invalid status transition from ${currentStatus} to ${newStatus}`,
       );
     }
+  }
+
+  ensureBloodRequestCanBeUpdated(bloodRequest: BloodRequestEntity) {
+    if (bloodRequest.status !== BloodRequestStatus.PENDING)
+      throw new BadRequestException("Blood request can't be modified");
+  }
+  ensureNoActiveBloodRequestExists(bloodRequests: BloodRequestEntity[]) {
+    if (bloodRequests.length > 0)
+      throw new ConflictException(
+        'A patient cannot have more than one active blood request',
+      );
   }
 }

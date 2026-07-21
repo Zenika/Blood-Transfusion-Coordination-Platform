@@ -21,4 +21,7 @@ export abstract class BloodRequestRepository {
     bloodRequestId: string,
     status: BloodRequestStatus,
   ): Promise<BloodRequestEntity>;
+  abstract findActiveBloodRequestsByUserId(
+    userId: string,
+  ): Promise<BloodRequestEntity[]>;
 }
