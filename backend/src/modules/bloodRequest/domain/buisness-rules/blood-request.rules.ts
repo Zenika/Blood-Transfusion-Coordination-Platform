@@ -47,7 +47,7 @@ export class BloodRequestBuisnessRules {
     }
   }
 
-  ensureRequestCanBeUpdated(bloodRequest: BloodRequestEntity) {
+  ensureBloodRequestCanBeUpdated(bloodRequest: BloodRequestEntity) {
     if (bloodRequest.status !== BloodRequestStatus.PENDING)
       throw new BadRequestException("Blood request can't be modified");
   }
