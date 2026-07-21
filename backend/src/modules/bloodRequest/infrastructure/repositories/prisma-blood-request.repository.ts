@@ -68,4 +68,22 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
     });
     return BloodRequestMapper.toDomain(updatedBloodRequest);
   }
+
+  async findActiveBloodRequestsByUserId(
+    userId: string,
+  ): Promise<BloodRequestEntity[]> {
+    const bloodRequests = await this.prisma.bloodRequest.findMany({
+      where: {
+        patientId: userId,
+        status: {
+          in: [
+            BloodRequestStatus.PENDING,
+            BloodRequestStatus.ACCEPTED,
+            BloodRequestStatus.MATCHING,
+          ],
+        },
+      },
+    });
+    return bloodRequests.map((br) => BloodRequestMapper.toDomain(br));
+  }
 }

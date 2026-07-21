@@ -51,4 +51,5 @@ export class BloodRequestBuisnessRules {
     if (bloodRequest.status !== BloodRequestStatus.PENDING)
       throw new BadRequestException("Blood request can't be modified");
   }
+ 
 }
