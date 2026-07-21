@@ -65,7 +65,7 @@ export class UpdateBloodRequestUseCase {
     this.bloodRequestBuisnessRules.ensureQuantityIsPositive(dto.quantity);
     this.bloodRequestValidator.ensureUserOwnsBloodRequest(bloodRequest, userId);
     const data = BloodRequestDtoMapper.updateDtoToDomain(dto);
-    await this.bloodRequestRepository.update(bloodRequestId, data);
+    return await this.bloodRequestRepository.update(bloodRequestId, data);
   }
 }
 
@@ -90,7 +90,7 @@ export class UpdateBloodRequestStatus {
       bloodRequest.status,
       status,
     );
-    await this.bloodRequestRepository.updateBloodRequestStatus(
+    return await this.bloodRequestRepository.updateBloodRequestStatus(
       bloodRequestId,
       status,
     );
