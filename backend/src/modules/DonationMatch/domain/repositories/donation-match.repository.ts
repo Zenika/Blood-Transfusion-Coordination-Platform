@@ -2,7 +2,7 @@ import { CreateDonationMatchData } from 'src/shared/types/create-donation-match-
 import { DonationMatchEntity } from '../entities/donation-match.entity';
 
 export abstract class DonationMatchRepository {
-  abstract createMany(
-    donationMatches: CreateDonationMatchData[],
-  ): Promise<DonationMatchEntity[]>;
+  abstract create(
+    donationMatches: CreateDonationMatchData,
+  ): Promise<DonationMatchEntity>;
 }

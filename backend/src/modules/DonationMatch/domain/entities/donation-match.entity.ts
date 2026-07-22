@@ -1,10 +1,10 @@
-import { DonationMatchStatus } from '@prisma/client';
+import { DonationMatchStatusEnum } from 'src/shared/enums/donation-match-status.enum';
 
 export class DonationMatchEntity {
   id!: string;
   donorId!: string;
   bloodRequestId!: string;
-  status!: DonationMatchStatus;
+  status!: DonationMatchStatusEnum;
   createdAt!: Date;
   updatedAt!: Date;
 }
