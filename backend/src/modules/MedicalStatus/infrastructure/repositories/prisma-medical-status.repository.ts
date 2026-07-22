@@ -6,8 +6,11 @@ import { MedicalStatusEntity } from '../../domain/entities/medical-status.entity
 import { BloodTypeMapper } from '../mappers/blood-type.mapper';
 import { EligibilityStatusMapper } from '../mappers/eligibility-type.mapper';
 import { MedicalStatusMapper } from '../mappers/medical-status.mapper';
-import { User } from '@prisma/client';
+import { User, UserRole } from '@prisma/client';
 import { UpdateMedicalStatusData } from 'src/shared/types/update-medical-status-data.type';
+import { UserEntity } from 'src/modules/user/domain/entities/user.entity';
+import { BloodType } from 'src/shared/enums/blood-type.enum';
+import { UserMapper } from 'src/modules/user/infrastructure/mappers/user.mapper';
 
 @Injectable()
 export class PrismaMedicalStatus implements MedicalStatusRepository {
@@ -69,5 +72,24 @@ export class PrismaMedicalStatus implements MedicalStatusRepository {
       data: { lastDonationDate: date },
     });
     return MedicalStatusMapper.toDomain(medicalStatus);
+  }
+
+  async findEligibleDonors(
+    compatiblesBloodType: BloodType[],
+  ): Promise<UserEntity[]> {
+    const users = await this.prisma.user.findMany({
+      where: {
+        role: UserRole.DONOR,
+        medicalStatus: {
+          bloodType: {
+            in: compatiblesBloodType,
+          },
+        },
+      },
+      include: {
+        medicalStatus: true,
+      },
+    });
+    return users.map((u) => UserMapper.toDomain(u));
   }
 }
