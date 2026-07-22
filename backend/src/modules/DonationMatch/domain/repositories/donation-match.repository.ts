@@ -3,6 +3,6 @@ import { DonationMatchEntity } from '../entities/donation-match.entity';
 
 export abstract class DonationMatchRepository {
   abstract create(
-    donationMatches: CreateDonationMatchData,
+    donationMatche: CreateDonationMatchData,
   ): Promise<DonationMatchEntity>;
 }
