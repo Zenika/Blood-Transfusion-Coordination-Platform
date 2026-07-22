@@ -116,8 +116,8 @@ model DonationMatch {
   bloodRequest   BloodRequest        @relation(fields: [bloodRequestId], references: [id])
   donorId        String
   donor          User                @relation(fields: [donorId], references: [id])
-  status         DonationMatchStatus
-  createdAt       DateTime            @default(now())
+  status         DonationMatchStatus @default(PENDING)
+  createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
 
   @@unique([bloodRequestId, donorId])
