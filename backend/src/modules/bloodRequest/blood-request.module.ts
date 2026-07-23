@@ -31,5 +31,10 @@ import { BloodRequestBuisnessRules } from './domain/buisness-rules/blood-request
     UpdateBloodRequestStatus,
   ],
   controllers: [BloodRequestController],
+  exports: [
+    BloodRequestValidator,
+    BloodRequestRepository,
+    BloodRequestBuisnessRules,
+  ],
 })
 export class BloodRequestModule {}

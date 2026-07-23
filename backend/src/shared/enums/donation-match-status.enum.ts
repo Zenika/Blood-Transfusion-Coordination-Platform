@@ -1,0 +1,7 @@
+export enum DonationMatchStatusEnum {
+  PENDING = 'PENDING',
+  ACCEPTED = 'ACCEPTED',
+  DECLINED = 'DECLINED',
+  EXPIRED = 'EXPIRED',
+  CANCELLED = 'CANCELLED',
+}
