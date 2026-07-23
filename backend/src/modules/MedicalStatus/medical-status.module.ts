@@ -37,5 +37,6 @@ import { UserModule } from '../user/user.module';
     MedicalStatusValidator,
   ],
   controllers: [MedicalStatusController],
+  exports: [MedicalStatusRepository],
 })
 export class MedicalStatusModule {}
