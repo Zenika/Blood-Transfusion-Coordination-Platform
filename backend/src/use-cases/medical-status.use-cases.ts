@@ -4,10 +4,12 @@ import { MedicalStatusBuisnessRules } from 'src/modules/MedicalStatus/domain/bui
 import { MedicalStatusEntity } from 'src/modules/MedicalStatus/domain/entities/medical-status.entity';
 import { MedicalStatusRepository } from 'src/modules/MedicalStatus/domain/repositories/medical-status.repository';
 import { MedicalStatusDtoMapper } from 'src/modules/MedicalStatus/infrastructure/mappers/medical-status-dto.mapper';
-import { CreateMedicalStatusDto } from 'src/modules/MedicalStatus/presentation/dto/create-medical-status.dto';
-import { UpdatelastDonationDateDto } from 'src/modules/MedicalStatus/presentation/dto/last-donation-date.dto';
-import { UpdateMedicalStatusDto } from 'src/modules/MedicalStatus/presentation/dto/update-medical-status.dto';
 import { UserValidator } from 'src/modules/user/application/validators/user.validator';
+import {
+  CreateMedicalStatusDto,
+  UpdatelastDonationDateDto,
+  UpdateMedicalStatusDto,
+} from 'src/presentation/dto/medical-status.dto';
 import { CreateMedicalStatusReponseType } from 'src/shared/types/create-medical-status-reponse.type';
 import { UpdateMedicalStatusData } from 'src/shared/types/update-medical-status-data.type';
 
