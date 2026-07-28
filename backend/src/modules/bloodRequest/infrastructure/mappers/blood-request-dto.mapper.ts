@@ -13,7 +13,6 @@ export class BloodRequestDtoMapper {
   ): CreateBloodRequestData {
     return {
       patientId: userId,
-      bloodType: dto.bloodType,
       urgencyLevel: dto.urgencyLevel,
       status: BloodRequestStatus.PENDING,
       medicalReason: dto.medicalReason ? dto.medicalReason : null,

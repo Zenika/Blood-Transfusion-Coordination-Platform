@@ -6,10 +6,6 @@ import { UrgencyLevel } from 'src/shared/enums/urgency-level.enum';
 
 export class createBloodRequestDto {
   @ApiProperty()
-  @IsEnum(BloodType)
-  bloodType!: BloodType;
-
-  @ApiProperty()
   @IsEnum(UrgencyLevel)
   urgencyLevel!: UrgencyLevel;
 

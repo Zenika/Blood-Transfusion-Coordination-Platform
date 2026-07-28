@@ -14,9 +14,15 @@ import { BloodRequestValidator } from './application/validators/blood-request.va
 import { UserModule } from '../user/user.module';
 import { BloodRequestBuisnessRules } from './domain/buisness-rules/blood-request.rules';
 import { DonationMatchModule } from '../DonationMatch/donation-match.module';
+import { MedicalStatusModule } from '../MedicalStatus/medical-status.module';
 
 @Module({
-  imports: [PrismaModule, UserModule, forwardRef(() => DonationMatchModule)],
+  imports: [
+    PrismaModule,
+    UserModule,
+    forwardRef(() => DonationMatchModule),
+    MedicalStatusModule,
+  ],
   providers: [
     {
       provide: BloodRequestRepository,

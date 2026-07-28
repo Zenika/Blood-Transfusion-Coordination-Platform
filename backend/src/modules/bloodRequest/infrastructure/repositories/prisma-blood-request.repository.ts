@@ -9,20 +9,25 @@ import { BloodRequestMapper } from '../mappers/blood-request.mapper';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 import { Injectable } from '@nestjs/common';
+import { GetMedicalStatusUseCase } from 'src/use-cases/medical-status.use-cases';
 @Injectable()
 export class PrismaBloodRequestRepository implements BloodRequestRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly getMedicalStatusUseCase: GetMedicalStatusUseCase,
+  ) {}
 
   async create(
     patientId: string,
     data: CreateBloodRequestData,
   ): Promise<BloodRequestEntity> {
+    const medicalStatus = await this.getMedicalStatusUseCase.execute(patientId);
     const BloodRequest = await this.prisma.bloodRequest.create({
       data: {
         patient: {
           connect: { id: patientId },
         },
-        bloodType: BloodTypeMapper.toPrisma(data.bloodType),
+        bloodType: BloodTypeMapper.toPrisma(medicalStatus.bloodType),
         urgencyLevel: UrgencyLevelMapper.toPrisma(data.urgencyLevel),
         status: BloodRequestStatus.PENDING,
         medicalReason: data.medicalReason,
