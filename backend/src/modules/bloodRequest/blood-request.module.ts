@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { BloodRequestRepository } from './domain/repositories/blood-request.repository';
 import { PrismaBloodRequestRepository } from './infrastructure/repositories/prisma-blood-request.repository';
 import { PrismaModule } from 'src/shared/prisma/prisma.module';
@@ -13,9 +13,10 @@ import {
 import { BloodRequestValidator } from './application/validators/blood-request.validator';
 import { UserModule } from '../user/user.module';
 import { BloodRequestBuisnessRules } from './domain/buisness-rules/blood-request.rules';
+import { DonationMatchModule } from '../DonationMatch/donation-match.module';
 
 @Module({
-  imports: [PrismaModule, UserModule],
+  imports: [PrismaModule, UserModule, forwardRef(() => DonationMatchModule)],
   providers: [
     {
       provide: BloodRequestRepository,
