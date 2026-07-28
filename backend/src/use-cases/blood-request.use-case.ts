@@ -13,6 +13,7 @@ import { BloodRequestBuisnessRules } from 'src/modules/bloodRequest/domain/buisn
 import { CreateDonationMatchesUseCase } from './donation-match.use-case';
 import { UpdateUserRoleUseCase } from './user.use-cases';
 import { UserRole } from 'src/shared/enums/user-role.enum';
+import { MedicalStatusValidator } from 'src/modules/MedicalStatus/application/validators/medical-status.validator';
 
 @Injectable()
 export class CreateBloodRequestUseCase {
@@ -22,6 +23,7 @@ export class CreateBloodRequestUseCase {
     private readonly userValidator: UserValidator,
     private readonly createDonationMatchesUseCase: CreateDonationMatchesUseCase,
     private readonly updateUserRoleUseCase: UpdateUserRoleUseCase,
+    private readonly medicalStatusValidator: MedicalStatusValidator,
   ) {}
   async execute(userId: string, data: createBloodRequestDto) {
     await this.userValidator.ensureUserExistsById(userId);
@@ -30,10 +32,13 @@ export class CreateBloodRequestUseCase {
     this.bloodRequestBuisnessRules.ensureNoActiveBloodRequestExists(
       bloodRequests,
     );
+    const medicalStatus =
+      await this.medicalStatusValidator.ensureMedicalStatusExists(userId);
     const bloodRequestMappedData = BloodRequestDtoMapper.toDomain(data, userId);
     const bloodRequest = await this.bloodRequestRepository.create(
       userId,
       bloodRequestMappedData,
+      medicalStatus.bloodType,
     );
     await this.updateUserRoleUseCase.execute(userId, UserRole.PATIENT);
     return await this.createDonationMatchesUseCase.execute(bloodRequest.id);

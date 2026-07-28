@@ -2,11 +2,13 @@ import { CreateBloodRequestData } from 'src/shared/types/create-blood-request-da
 import { BloodRequestEntity } from '../entities/blood-request.entity';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
+import { BloodType } from 'src/shared/enums/blood-type.enum';
 
 export abstract class BloodRequestRepository {
   abstract create(
     patientId: string,
     data: CreateBloodRequestData,
+    bloodType: BloodType,
   ): Promise<BloodRequestEntity>;
 
   abstract findById(bloodRequestId: string): Promise<BloodRequestEntity | null>;
