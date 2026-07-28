@@ -35,7 +35,7 @@ export class CreateBloodRequestUseCase {
       userId,
       bloodRequestMappedData,
     );
-    await this.updateUserRoleUseCase.execute(userId, UserRole.DONOR);
+    await this.updateUserRoleUseCase.execute(userId, UserRole.PATIENT);
     return await this.createDonationMatchesUseCase.execute(bloodRequest.id);
   }
 }
