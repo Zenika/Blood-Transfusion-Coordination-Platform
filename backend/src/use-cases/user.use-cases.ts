@@ -8,6 +8,7 @@ import {
   UpdatePasswordDto,
   UpdateUserDto,
 } from 'src/presentation/dto/user.dto';
+import { UserRole } from 'src/shared/enums/user-role.enum';
 
 import { AuthResponse } from 'src/shared/types/auth-reponse.type';
 import { UpdateUserType } from 'src/shared/types/update-user.type';
@@ -90,5 +91,16 @@ export class UpdateUseCase {
       Object.entries(data).filter(([, value]) => value !== undefined),
     );
     return await this.userRepository.update(userId, updatedUser);
+  }
+}
+@Injectable()
+export class UpdateUserRole {
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly userValidator: UserValidator,
+  ) {}
+  async execute(userId: string, role: UserRole) {
+    await this.userValidator.ensureUserExistsById(userId);
+    return await this.userRepository.updateRole(userId, role);
   }
 }
