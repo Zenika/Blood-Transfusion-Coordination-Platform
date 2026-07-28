@@ -3,7 +3,8 @@ import { DonationMatchEntity } from '../../domain/entities/donation-match.entity
 import { DonationMatchRepository } from '../../domain/repositories/donation-match.repository';
 import { PrismaService } from 'src/shared/prisma/prisma.service';
 import { DonationMatchMapper } from '../mappers/donation-match.mapper';
-
+import { Injectable } from '@nestjs/common';
+@Injectable()
 export class PrismaDonationMatchRepository implements DonationMatchRepository {
   constructor(private readonly prisma: PrismaService) {}
   async create(data: CreateDonationMatchData): Promise<DonationMatchEntity> {

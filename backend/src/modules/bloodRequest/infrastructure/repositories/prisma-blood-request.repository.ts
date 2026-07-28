@@ -8,7 +8,8 @@ import { BloodTypeMapper } from 'src/modules/MedicalStatus/infrastructure/mapper
 import { BloodRequestMapper } from '../mappers/blood-request.mapper';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
-
+import { Injectable } from '@nestjs/common';
+@Injectable()
 export class PrismaBloodRequestRepository implements BloodRequestRepository {
   constructor(private readonly prisma: PrismaService) {}
 
