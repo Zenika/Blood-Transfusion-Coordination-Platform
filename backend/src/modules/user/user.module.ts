@@ -12,6 +12,7 @@ import {
   UpdatePasswordUseCase,
   DeleteUseCase,
   GetUseCase,
+  UpdateUserRoleUseCase,
 } from 'src/use-cases/user.use-cases';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { UserValidator } from './application/validators/user.validator';
@@ -40,8 +41,9 @@ import { UserValidator } from './application/validators/user.validator';
     GetUseCase,
     JwtStrategy,
     UserValidator,
+    UpdateUserRoleUseCase,
   ],
   controllers: [UserController],
-  exports: [UserValidator],
+  exports: [UserValidator, UpdateUserRoleUseCase],
 })
 export class UserModule {}
