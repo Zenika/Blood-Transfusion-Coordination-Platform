@@ -6,6 +6,7 @@ import { UserEntity } from '../../domain/entities/user.entity';
 import { UserMapper } from '../mappers/user.mapper';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserType } from 'src/shared/types/update-user.type';
+import { UserRole } from 'src/shared/enums/user-role.enum';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -59,5 +60,12 @@ export class PrismaUserRepository implements UserRepository {
   }
   async delete(userId: string): Promise<void> {
     await this.prisma.user.delete({ where: { id: userId } });
+  }
+  async updateRole(userId: string, role: UserRole): Promise<UserEntity> {
+    const user = await this.prisma.user.update({
+      where: { id: userId },
+      data: { role: role },
+    });
+    return UserMapper.toDomain(user);
   }
 }
