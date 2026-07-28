@@ -11,6 +11,8 @@ import { UserValidator } from 'src/modules/user/application/validators/user.vali
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 import { BloodRequestBuisnessRules } from 'src/modules/bloodRequest/domain/buisness-rules/blood-request.rules';
 import { CreateDonationMatchesUseCase } from './donation-match.use-case';
+import { UpdateUserRoleUseCase } from './user.use-cases';
+import { UserRole } from 'src/shared/enums/user-role.enum';
 
 @Injectable()
 export class CreateBloodRequestUseCase {
@@ -19,6 +21,7 @@ export class CreateBloodRequestUseCase {
     private readonly bloodRequestBuisnessRules: BloodRequestBuisnessRules,
     private readonly userValidator: UserValidator,
     private readonly createDonationMatchesUseCase: CreateDonationMatchesUseCase,
+    private readonly updateUserRoleUseCase: UpdateUserRoleUseCase,
   ) {}
   async execute(userId: string, data: createBloodRequestDto) {
     await this.userValidator.ensureUserExistsById(userId);
@@ -32,6 +35,7 @@ export class CreateBloodRequestUseCase {
       userId,
       bloodRequestMappedData,
     );
+    await this.updateUserRoleUseCase.execute(userId, UserRole.DONOR);
     return await this.createDonationMatchesUseCase.execute(bloodRequest.id);
   }
 }

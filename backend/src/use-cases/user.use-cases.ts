@@ -94,7 +94,7 @@ export class UpdateUseCase {
   }
 }
 @Injectable()
-export class UpdateUserRole {
+export class UpdateUserRoleUseCase {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly userValidator: UserValidator,
