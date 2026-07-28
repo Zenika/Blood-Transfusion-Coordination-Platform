@@ -9,6 +9,7 @@ import { BloodRequestMapper } from '../mappers/blood-request.mapper';
 import { UpdateBloodRequestData } from 'src/shared/types/update-blood-request.type';
 import { BloodRequestStatus } from 'src/shared/enums/blood-request-status.enum';
 import { Injectable } from '@nestjs/common';
+import { BloodType } from 'src/shared/enums/blood-type.enum';
 @Injectable()
 export class PrismaBloodRequestRepository implements BloodRequestRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -16,13 +17,14 @@ export class PrismaBloodRequestRepository implements BloodRequestRepository {
   async create(
     patientId: string,
     data: CreateBloodRequestData,
+    bloodType: BloodType,
   ): Promise<BloodRequestEntity> {
     const BloodRequest = await this.prisma.bloodRequest.create({
       data: {
         patient: {
           connect: { id: patientId },
         },
-        bloodType: BloodTypeMapper.toPrisma(data.bloodType),
+        bloodType: BloodTypeMapper.toPrisma(bloodType),
         urgencyLevel: UrgencyLevelMapper.toPrisma(data.urgencyLevel),
         status: BloodRequestStatus.PENDING,
         medicalReason: data.medicalReason,
