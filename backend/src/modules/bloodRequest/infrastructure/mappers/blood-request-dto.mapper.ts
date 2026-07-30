@@ -21,9 +21,7 @@ export class BloodRequestDtoMapper {
   }
   static updateDtoToDomain(dto: UpdateBloodRequestDto): UpdateBloodRequestData {
     return {
-      bloodType: dto.bloodType,
       urgencyLevel: dto.urgencyLevel,
-      status: dto.status,
       medicalReason: dto.medicalReason,
       quantity: dto.quantity,
     };

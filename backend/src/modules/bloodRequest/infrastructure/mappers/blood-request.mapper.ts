@@ -37,20 +37,12 @@ export class BloodRequestMapper {
   ): Prisma.BloodRequestUpdateInput {
     const updateData: Prisma.BloodRequestUpdateInput = {};
 
-    if (data.bloodType !== undefined) {
-      updateData.bloodType = BloodTypeMapper.toPrisma(data.bloodType);
-    }
-
     if (data.quantity !== undefined) {
       updateData.quantity = data.quantity;
     }
 
     if (data.urgencyLevel !== undefined) {
       updateData.urgencyLevel = UrgencyLevelMapper.toPrisma(data.urgencyLevel);
-    }
-
-    if (data.status !== undefined) {
-      updateData.status = BloodRequestStatusMapper.toPrisma(data.status);
     }
 
     if (data.medicalReason !== undefined) {

@@ -50,6 +50,7 @@ export class BloodRequestController {
     type: 'string',
     description: 'blood request id',
   })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async get(@Param('id') id: string) {
     return await this.getBloodRequestUseCase.execute(id);
@@ -82,8 +83,8 @@ export class BloodRequestController {
     @CurrentUser() user: AuthenticatedUser,
   ) {
     return await this.updateBloodRequestStatus.execute(
-      id,
       user.userId,
+      id,
       dto.status,
     );
   }
