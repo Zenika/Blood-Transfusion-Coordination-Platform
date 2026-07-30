@@ -43,4 +43,14 @@ export class PrismaDonationMatchRepository implements DonationMatchRepository {
     });
     return DonationMatchMapper.toDomain(donationMatch);
   }
+  async findByBloodRequest(
+    bloodRequestId: string,
+  ): Promise<DonationMatchEntity[] | null> {
+    const donationMatches = await this.prisma.donationMatch.findMany({
+      where: { bloodRequestId },
+    });
+    if (!Array.isArray(donationMatches) || donationMatches.length === 0)
+      return null;
+    return donationMatches.map((dm) => DonationMatchMapper.toDomain(dm));
+  }
 }

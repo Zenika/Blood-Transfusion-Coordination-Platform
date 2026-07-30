@@ -13,4 +13,7 @@ export abstract class DonationMatchRepository {
     donationMatchId: string,
     status: DonationMatchStatusEnum,
   ): Promise<DonationMatchEntity>;
+  abstract findByBloodRequest(
+    bloodRequestId: string,
+  ): Promise<DonationMatchEntity[] | null>;
 }
