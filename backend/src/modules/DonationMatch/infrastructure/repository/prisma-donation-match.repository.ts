@@ -7,6 +7,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class PrismaDonationMatchRepository implements DonationMatchRepository {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(data: CreateDonationMatchData): Promise<DonationMatchEntity> {
     const donationMatch = await this.prisma.donationMatch.create({
       data: {
@@ -24,5 +25,11 @@ export class PrismaDonationMatchRepository implements DonationMatchRepository {
       },
     });
     return DonationMatchMapper.toDomain(donationMatch);
+  }
+  async findById(donationMatchId: string): Promise<DonationMatchEntity | null> {
+    const donationMatch = await this.prisma.donationMatch.findUnique({
+      where: { id: donationMatchId },
+    });
+    return donationMatch ? DonationMatchMapper.toDomain(donationMatch) : null;
   }
 }

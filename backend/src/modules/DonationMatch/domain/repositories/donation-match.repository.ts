@@ -5,4 +5,5 @@ export abstract class DonationMatchRepository {
   abstract create(
     donationMatche: CreateDonationMatchData,
   ): Promise<DonationMatchEntity>;
+  abstract findById(donationMatchId: string): Promise<DonationMatchEntity|null>;
 }
