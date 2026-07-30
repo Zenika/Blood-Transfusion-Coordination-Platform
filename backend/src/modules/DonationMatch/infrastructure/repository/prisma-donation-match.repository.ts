@@ -4,6 +4,7 @@ import { DonationMatchRepository } from '../../domain/repositories/donation-matc
 import { PrismaService } from 'src/shared/prisma/prisma.service';
 import { DonationMatchMapper } from '../mappers/donation-match.mapper';
 import { Injectable } from '@nestjs/common';
+import { DonationMatchStatusEnum } from 'src/shared/enums/donation-match-status.enum';
 @Injectable()
 export class PrismaDonationMatchRepository implements DonationMatchRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -31,5 +32,15 @@ export class PrismaDonationMatchRepository implements DonationMatchRepository {
       where: { id: donationMatchId },
     });
     return donationMatch ? DonationMatchMapper.toDomain(donationMatch) : null;
+  }
+  async updateStatus(
+    donationMatchId: string,
+    status: DonationMatchStatusEnum,
+  ): Promise<DonationMatchEntity> {
+    const donationMatch = await this.prisma.donationMatch.update({
+      where: { id: donationMatchId },
+      data: { status: status },
+    });
+    return DonationMatchMapper.toDomain(donationMatch);
   }
 }
