@@ -89,3 +89,32 @@ export class AcceptDonationMatchUseCase {
     );
   }
 }
+@Injectable()
+export class DeclinedDonationMatchUseCase {
+  constructor(
+    private readonly donationMatchRepository: DonationMatchRepository,
+    private readonly donationMatchBuisnessRules: DonationMatchBuisnessRules,
+    private readonly bloodRequestRepository: BloodRequestRepository,
+  ) {}
+  async execute(donationMatchId: string) {
+    const DonationMatch =
+      await this.donationMatchBuisnessRules.ensureDonationMatchExists(
+        donationMatchId,
+      );
+    this.donationMatchBuisnessRules.ensureDonationMatchCanBeDeclined(
+      DonationMatch,
+    );
+    await this.donationMatchRepository.updateStatus(
+      donationMatchId,
+      DonationMatchStatusEnum.DECLINED,
+    );
+    const count = await this.donationMatchRepository.countPendingByBloodRequest(
+      DonationMatch.bloodRequestId,
+    );
+    if (count === 0)
+      await this.bloodRequestRepository.updateBloodRequestStatus(
+        DonationMatch.bloodRequestId,
+        BloodRequestStatus.PENDING,
+      );
+  }
+}

@@ -52,4 +52,8 @@ export class DonationMatchBuisnessRules {
     if (donationMatch.status !== DonationMatchStatusEnum.PENDING)
       throw new BadRequestException("DonationMatch can't be modified");
   }
+  ensureDonationMatchCanBeDeclined(donationMatch: DonationMatchEntity) {
+    if (donationMatch.status !== DonationMatchStatusEnum.PENDING)
+      throw new BadRequestException("DonationMatch can't be modified");
+  }
 }
