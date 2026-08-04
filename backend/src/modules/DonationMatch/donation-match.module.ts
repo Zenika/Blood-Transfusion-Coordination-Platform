@@ -1,10 +1,15 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { PrismaModule } from 'src/shared/prisma/prisma.module';
-import { CreateDonationMatchesUseCase } from 'src/use-cases/donation-match.use-case';
+import {
+  AcceptDonationMatchUseCase,
+  CreateDonationMatchesUseCase,
+} from 'src/use-cases/donation-match.use-case';
 import { DonationMatchRepository } from './domain/repositories/donation-match.repository';
 import { PrismaDonationMatchRepository } from './infrastructure/repository/prisma-donation-match.repository';
 import { MedicalStatusModule } from '../MedicalStatus/medical-status.module';
 import { BloodRequestModule } from '../bloodRequest/blood-request.module';
+import { DonationMatchController } from 'src/presentation/controllers/donation-match.controller';
+import { DonationMatchBuisnessRules } from './domain/buisness-rules/donation-match.buisness-rules';
 
 @Module({
   imports: [
@@ -18,7 +23,10 @@ import { BloodRequestModule } from '../bloodRequest/blood-request.module';
       useClass: PrismaDonationMatchRepository,
     },
     CreateDonationMatchesUseCase,
+    AcceptDonationMatchUseCase,
+    DonationMatchBuisnessRules,
   ],
   exports: [CreateDonationMatchesUseCase],
+  controllers: [DonationMatchController],
 })
 export class DonationMatchModule {}

@@ -47,7 +47,7 @@ export class CreateDonationMatchesUseCase {
 }
 
 @Injectable()
-export class AccepteDonationMatchUseCase {
+export class AcceptDonationMatchUseCase {
   constructor(
     private readonly donationMatchRepository: DonationMatchRepository,
     private readonly donationMatchBuisnessRules: DonationMatchBuisnessRules,
