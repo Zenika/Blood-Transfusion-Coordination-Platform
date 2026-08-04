@@ -3,6 +3,7 @@ import { PrismaModule } from 'src/shared/prisma/prisma.module';
 import {
   AcceptDonationMatchUseCase,
   CreateDonationMatchesUseCase,
+  DeclinedDonationMatchUseCase,
 } from 'src/use-cases/donation-match.use-case';
 import { DonationMatchRepository } from './domain/repositories/donation-match.repository';
 import { PrismaDonationMatchRepository } from './infrastructure/repository/prisma-donation-match.repository';
@@ -25,6 +26,7 @@ import { DonationMatchBuisnessRules } from './domain/buisness-rules/donation-mat
     CreateDonationMatchesUseCase,
     AcceptDonationMatchUseCase,
     DonationMatchBuisnessRules,
+    DeclinedDonationMatchUseCase,
   ],
   exports: [CreateDonationMatchesUseCase],
   controllers: [DonationMatchController],

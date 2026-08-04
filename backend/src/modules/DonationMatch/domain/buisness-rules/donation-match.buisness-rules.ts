@@ -54,6 +54,6 @@ export class DonationMatchBuisnessRules {
   }
   ensureDonationMatchCanBeDeclined(donationMatch: DonationMatchEntity) {
     if (donationMatch.status !== DonationMatchStatusEnum.PENDING)
-      throw new BadRequestException("DonationMatch can't be Declined");
+      throw new BadRequestException("DonationMatch can't be modified");
   }
 }
