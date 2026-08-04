@@ -118,3 +118,12 @@ export class DeclinedDonationMatchUseCase {
       );
   }
 }
+@Injectable()
+export class GetDonationMatchesByDonorUseCase {
+  constructor(
+    private readonly donationMatchRepository: DonationMatchRepository,
+  ) {}
+  async execute(donorId: string) {
+    return await this.donationMatchRepository.findByDonorId(donorId);
+  }
+}

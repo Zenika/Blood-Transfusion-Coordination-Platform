@@ -4,6 +4,7 @@ import {
   AcceptDonationMatchUseCase,
   CreateDonationMatchesUseCase,
   DeclinedDonationMatchUseCase,
+  GetDonationMatchesByDonorUseCase,
 } from 'src/use-cases/donation-match.use-case';
 import { DonationMatchRepository } from './domain/repositories/donation-match.repository';
 import { PrismaDonationMatchRepository } from './infrastructure/repository/prisma-donation-match.repository';
@@ -27,6 +28,7 @@ import { DonationMatchBuisnessRules } from './domain/buisness-rules/donation-mat
     AcceptDonationMatchUseCase,
     DonationMatchBuisnessRules,
     DeclinedDonationMatchUseCase,
+    GetDonationMatchesByDonorUseCase,
   ],
   exports: [CreateDonationMatchesUseCase],
   controllers: [DonationMatchController],

@@ -22,4 +22,5 @@ export abstract class DonationMatchRepository {
     status: DonationMatchStatusEnum,
   );
   abstract countPendingByBloodRequest(bloodRequestId: string): Promise<number>;
+  abstract findByDonorId(donorId: string): Promise<DonationMatchEntity[]>;
 }
