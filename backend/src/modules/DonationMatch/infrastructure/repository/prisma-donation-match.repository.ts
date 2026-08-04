@@ -5,6 +5,7 @@ import { PrismaService } from 'src/shared/prisma/prisma.service';
 import { DonationMatchMapper } from '../mappers/donation-match.mapper';
 import { Injectable } from '@nestjs/common';
 import { DonationMatchStatusEnum } from 'src/shared/enums/donation-match-status.enum';
+import { DonationMatchStatus } from '@prisma/client';
 @Injectable()
 export class PrismaDonationMatchRepository implements DonationMatchRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -70,6 +71,14 @@ export class PrismaDonationMatchRepository implements DonationMatchRepository {
         status: status,
       },
     });
-    
+  }
+  async countPendingByBloodRequest(bloodRequestId: string): Promise<number> {
+    const donationMatches = await this.prisma.donationMatch.findMany({
+      where: {
+        bloodRequestId,
+        status: DonationMatchStatus.PENDING,
+      },
+    });
+    return donationMatches.length;
   }
 }
