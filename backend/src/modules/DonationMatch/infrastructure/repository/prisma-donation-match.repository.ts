@@ -53,4 +53,23 @@ export class PrismaDonationMatchRepository implements DonationMatchRepository {
       return null;
     return donationMatches.map((dm) => DonationMatchMapper.toDomain(dm));
   }
+
+  async updateOtherMatchesStatus(
+    bloodrequestId: string,
+    acceptedMatchId: string,
+    status: DonationMatchStatusEnum,
+  ) {
+    const donationMatches = await this.prisma.donationMatch.updateMany({
+      where: {
+        bloodRequestId: bloodrequestId,
+        id: {
+          not: acceptedMatchId,
+        },
+      },
+      data: {
+        status: status,
+      },
+    });
+    
+  }
 }

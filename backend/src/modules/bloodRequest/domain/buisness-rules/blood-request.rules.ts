@@ -57,4 +57,8 @@ export class BloodRequestBuisnessRules {
         'A patient cannot have more than one active blood request',
       );
   }
+  ensureBloodRequestCanBeAccepted(bloodRequest: BloodRequestEntity) {
+    if (bloodRequest.status !== BloodRequestStatus.MATCHING)
+      throw new BadRequestException("Blood request can't be modified");
+  }
 }
