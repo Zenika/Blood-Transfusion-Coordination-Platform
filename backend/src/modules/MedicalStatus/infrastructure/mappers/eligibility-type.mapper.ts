@@ -6,6 +6,6 @@ export class EligibilityStatusMapper {
     return type as DomainEligibilityStatus;
   }
   static toPrisma(type: DomainEligibilityStatus): PrismaEligibilityStatus {
-    return type as PrismaEligibilityStatus;
+    return type;
   }
 }

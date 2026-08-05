@@ -71,6 +71,7 @@ export class PrismaDonationMatchRepository implements DonationMatchRepository {
         status: status,
       },
     });
+    return donationMatches;
   }
   async countPendingByBloodRequest(bloodRequestId: string): Promise<number> {
     const donationMatches = await this.prisma.donationMatch.findMany({

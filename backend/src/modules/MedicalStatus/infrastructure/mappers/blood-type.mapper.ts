@@ -3,7 +3,7 @@ import { BloodType as PrismaBloodType } from '@prisma/client';
 
 export class BloodTypeMapper {
   static toPrisma(type: DomainBloodType): PrismaBloodType {
-    return type as PrismaBloodType;
+    return type;
   }
   static toDomain(type: PrismaBloodType): DomainBloodType {
     return type as DomainBloodType;

@@ -3,7 +3,7 @@ import { UrgencyLevel as UrgencyLevelDomain } from 'src/shared/enums/urgency-lev
 
 export class UrgencyLevelMapper {
   static toPrisma(type: UrgencyLevelDomain): UrgencyLevelPrisma {
-    return type as UrgencyLevelPrisma;
+    return type;
   }
   static toDomain(type: UrgencyLevelPrisma): UrgencyLevelDomain {
     return type as UrgencyLevelDomain;
