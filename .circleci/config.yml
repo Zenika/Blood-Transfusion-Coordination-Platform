@@ -33,6 +33,12 @@ jobs:
           command: |
             cd backend
             npm run lint
+      - run:
+          name: run tests
+          command: |
+            cd backend
+            npm test
+
 workflows:
   version: 2
 
