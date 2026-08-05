@@ -12,15 +12,21 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: npm ci
+          command: |
+                  cd backend
+                  npm ci
 
       - run:
           name: Generate Prisma Client
-          command: npx prisma generate
+          command: |
+                   cd backend
+                   npx prisma generate
 
       - run:
           name: Build
-          command: npm run build
+          command: |
+                   cd backend
+                   npm run build
 
 workflows:
   version: 2
