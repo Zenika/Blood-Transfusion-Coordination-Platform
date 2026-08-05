@@ -2,6 +2,8 @@ import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UserRole } from '../enums/user-role.enum';
 import { ROLES_KEY } from '../decorators/roles.decorator';
+import { AuthenticatedUser } from '../types/authenticated-user.type';
+type RequestWithUser = Request & { user?: AuthenticatedUser };
 
 export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
@@ -11,8 +13,8 @@ export class RolesGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
     if (!requiredRoles) return true;
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<RequestWithUser>();
     const user = request.user;
-    return requiredRoles.includes(user.role);
+    return user ? requiredRoles.includes(user.role) : false;
   }
 }
